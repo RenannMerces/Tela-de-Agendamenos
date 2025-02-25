@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    border: 0;
+    font-family: "Poppins", serif;
+}      
+      
+/** -------------------- Estilização da sidebar -------------*/
+    .sidebar {
+        width: 80px;
+        height: 100vh;
+        background-color: #0D5F71;
+        position: fixed;
+        transition: width 0.3s;
+        overflow: hidden;
+    }
+
+    .sidebar.expanded {
+        width: 250px;
+    }
+
+    .toggle-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+        padding: 15px;
+    }
+
+/** -------------------- Estilização dos links ---------------*/
+.nav-link {
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    white-space: nowrap;
+    position: relative;
+}
+
+.nav-link:not(:last-child)::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.2); 
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.nav-link:last-child::after {
+    display: none;
+}
+
+.nav-link.active {
+    color: white !important; 
+}
+
+    .nav-link i {
+        font-size: 20px;
+        min-width: 40px;
+        text-align: center;
+    }
+
+    .sidebar.expanded .nav-link span {
+        display: inline;
+    }
+
+    .nav-link span {
+        display: none;
+    }
+
+/**---------------- Logo --------------*/
+    .logo {
+        text-align: center;
+        padding: 15px;
+    }
+
+    .logo img {
+        max-width: 60px;
+        transition: all 0.3s;
+    }
+
+    .sidebar.expanded .logo img {
+        max-width: 120px;
+    }
+
+    .nav-link:hover {
+        background-color: #D8A060;
+        color: aliceblue;
+    }
+
+    .nav-link.active {
+        background-color: #D8A060;
+    }
+
+/** ----------------------- Estilização do menu inferior --------------------*/
+.bottom-menu {
+    display: none !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #0D5F71;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+.bottom-menu a {
+    color: white;
+    text-align: center;
+    flex-grow: 1;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.bottom-menu a:hover{
+    background-color: #D8A060;
+    border-radius: 20px;
+}
+
+.bottom-menu i {
+    font-size: 24px;
+}
+
+@media (max-width: 768px) {
+    .bottom-menu {
+        display: flex;
+    }
+}
+
+/* Desaparece a sidebar e aparece o menu mobile */
+@media (max-width: 768px) {
+    .sidebar {
+        display: none !important;
+    }
+    
+    .bottom-menu {
+        display: flex !important;
+    }
+}
