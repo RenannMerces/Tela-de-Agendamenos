@@ -14,20 +14,19 @@
 <!-- Sidebar -->
     <section class="sidebar d-flex flex-column align-items-center" id="sidebar">
         <button class="toggle-btn" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
-        <div class="logo mt-3"><img src="src/icon.png" alt="Logo"></div>
-        <!-- Itens do menu -->
-        <nav class="nav flex-column w-100 mt-5">
-            <a href="#" class="nav-link" id="top-link"><i class="bi bi-house-door" title="Consultas"></i> <span>Consultas</span></a>
-            <a href="#" class="nav-link"><i class="bi bi-person-plus" title="Cadastros"></i> <span>Cadastros</span></a>
-            <a href="#" class="nav-link"><i class="bi bi-bar-chart" title="Registros"></i> <span>Registros</span></a>
-            <a href="#" class="nav-link"><i class="bi bi-file-earmark-text" title="Relatórios"></i> <span>Relatório</span></a>
-            <a class="nav-link" id="transaction-btn" onclick="toggleModal(event)">
-                <i class="bi bi-currency-exchange" title="Transação"></i> 
-                <span>Transação</span> 
-                <i class="bi bi-chevron-down dropdown-arrow"></i>
-            </a>
-        </nav>
-    </section>
+        <div class="logo mt-3 lazy"><img src="src/icon.png" alt="Logo" loading="lazy"></div>
+            <nav class="nav flex-column w-100 mt-5">
+                <a href="#" class="nav-link" id="top-link"><i class="bi bi-house-door" title="Consultas"></i> <span>Consultas</span></a>
+                <a href="#" class="nav-link"><i class="bi bi-person-plus" title="Cadastros"></i> <span>Cadastros</span></a>
+                <a href="#" class="nav-link"><i class="bi bi-bar-chart" title="Registros"></i> <span>Registros</span></a>
+                <a href="#" class="nav-link"><i class="bi bi-file-earmark-text" title="Relatórios"></i> <span>Relatório</span></a>
+                <a class="nav-link" id="transaction-btn" onclick="toggleModal(event)">
+                    <i class="bi bi-currency-exchange" title="Transação"></i> 
+                    <span>Transação</span> 
+                    <i class="bi bi-chevron-down dropdown-arrow"></i>
+                </a>
+            </nav>
+    </section> 
 
     <section id="transaction-modal" class="transaction-modal">
         <a href="entrada.html" class="modal-item"><i class="bi bi-arrow-down-circle"></i> Entrada</a>
@@ -40,8 +39,15 @@
         <a href="#"><i class="bi bi-person-plus" title="Cadastros"></i></a>
         <a href="#"><i class="bi bi-bar-chart" title="Registros"></i></a>
         <a href="#"><i class="bi bi-file-earmark-text" title="Relatórios"></i></a>
-        <a href="#"><i class="bi bi-currency-exchange" title="Transação"></i></a>
+        <a href="#" class="transaction-btn">
+            <i class="bi bi-currency-exchange" title="Transação"></i>
+        </a>
+            <div class="transaction-mini-modal">
+                <a href="#" class="modal-item"><i class="bi bi-arrow-up-circle" title="Entrada de Valores"></i> Entrada</a>
+                <a href="#" class="modal-item"><i class="bi bi-arrow-down-circle" title="Saída de Valores"></i> Saída</a>
+            </div>
     </section>
+<!-- Sidebar fim -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="script.js"></script>
