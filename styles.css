@@ -223,3 +223,70 @@
         display: flex !important;
     }
 }
+
+/*& -------------- CONTEÚDO DA PÁGINA ------------------ */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Container principal */
+.main-container {
+    display: flex;
+    padding-left: 35px;
+    padding-top: 20px;
+}
+
+/* Conteúdo principal */
+.content-section {
+    flex: 2;
+    margin-left: 50px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Barra de pesquisa */
+.search-container {
+    margin-bottom: 15px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Botões */
+.btn {
+    font-weight: 600;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border: none;
+    color: #000;
+}
+
+.btn-light {
+    background-color: #f8f9fa;
+    border: none;
+}
+
+/* Acordeão */
+.accordion-button {
+    font-weight: 500;
+    background-color: #f8f9fa;
+}
+
+.accordion-body {
+    background-color: #fff;
+}
