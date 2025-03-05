@@ -6,7 +6,16 @@
     border: 0;
     font-family: "Poppins", serif;
 }      
-      
+
+/** ---------- scroll ------------ */
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+::-webkit-scrollbar-thumb {
+    background: #0d5f71e6;
+}
+
 /** -------------------- Estilização da sidebar -------------*/
 .sidebar {
     width: 80px;
@@ -215,11 +224,17 @@
 }
 /*& ------------------- Responsividade ----------------- */
 
-@media (max-width: 768px) {
+@media (max-width: 900px){
+    .content-section {
+        margin-right: 0px !important;
+    }
 
     .custom-aside {
         display: none !important;
     }
+}
+
+@media (max-width: 768px) {
     .sidebar {
         display: none !important;
     }
@@ -341,8 +356,7 @@
     background-color: #dfdddd;
     color: white;
     padding: 20px;
-    max-height: 400px; 
-    overflow-x: auto; 
+    max-height: 350px; 
 }
 
 .accordion-button:not(.collapsed)::after {
@@ -352,6 +366,11 @@
 .accordion-body{
     padding: 5px !important;
     padding-top: 15px !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    display: block !important;
+    white-space: nowrap !important; 
+    overflow-x: auto !important;
 }
 
 .custom-accordion .accordion-button::after {
@@ -359,16 +378,40 @@
 }
 /** ------------------- Tabela -------------------- */
 
-.table-responsive {
-    overflow-x: auto !important; 
-    white-space: nowrap !important;
-    -webkit-overflow-scrolling: touch !important; 
+.table-container {
+    width: 100%; /* Ocupa toda a largura do pai */
+    max-width: 400vw !important; /* Mostra até metade da largura da tela */
+    overflow-x: auto; /* Adiciona scroll horizontal quando necessário */
+    white-space: nowrap; /* Evita que a tabela quebre */
+    border: 1px solid #ccc; /* Apenas para visualização */
+}
+
+@media (max-width: 1400px){
+    .table-container {
+        width: 180%; 
+    }
+}
+@media (max-width: 1000px){
+    .table-container {
+        width: 300%; 
+    }
+}
+@media (max-width: 800px){
+    .table-container {
+        width: 250% !important;   
+    }
+}
+@media (max-width: 600px){
+    .table-container {
+        width: 300% !important;  
+    }
 }
 
 .custom-table {
     background-color: #0d5f71e6;
-    color: white;
-    min-width: 800px !important; 
+    white-space: nowrap; 
+    table-layout: fixed;
+    border-collapse: collapse;
 }
 
 .custom-table thead {
