@@ -58,3 +58,49 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+//* ------ Truncate (aparecer o nome do coiso ao passar o mouse)-----------------//
+
+document.addEventListener("DOMContentLoaded", function() {
+    function aplicarTooltip() {
+        document.querySelectorAll(".truncate").forEach(function(element) {
+            element.removeAttribute("title");
+            if (element.offsetWidth < element.scrollWidth) {
+                element.setAttribute("title", element.textContent.trim());
+            }
+        });
+    }
+    aplicarTooltip();
+    window.addEventListener("resize", aplicarTooltip);
+});
+
+//* ----------------- Botões de ação tabela -----------------//
+
+document.addEventListener("DOMContentLoaded", () => {
+    const tabela = document.querySelector(".custom-table tbody");
+
+    if (!tabela) return;
+
+    const iconesAcoes = `
+        <td class="actions">
+            <i class="fas fa-pencil-alt text-warning"></i>
+            <i class="fas fa-trash text-danger"></i>
+            <i class="fas fa-dollar-sign text-success"></i>
+            <i class="fas fa-file-alt text-primary"></i>
+        </td>
+    `;
+
+    const adicionarAcoes = (linha) => {
+        if (!linha.querySelector(".actions")) linha.insertAdjacentHTML("beforeend", iconesAcoes);
+    };
+
+    tabela.querySelectorAll("tr").forEach(adicionarAcoes);
+
+    new MutationObserver((mutacoes) => {
+        mutacoes.forEach((mutacao) => {
+            mutacao.addedNodes.forEach((node) => {
+                if (node.nodeType === 1 && node.tagName === "TR") adicionarAcoes(node);
+            });
+        });
+    }).observe(tabela, { childList: true });
+});
