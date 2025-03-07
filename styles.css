@@ -366,11 +366,16 @@
 }
 
 .custom-accordion .accordion-button {
-    background-color: #0d5f71e6 !important;
-    color: white;
+    background-color: #f4f4f4 !important;
+    color: black;
     border: none;
     font-size: 18px;
     transition: background-color 0.3s ease;
+}
+
+.custom-accordion .accordion-button:not(.collapsed) {
+    background-color: #0d5f71e6 !important;
+    color: #f8f9fa; 
 }
 
 .custom-accordion .accordion-button:hover,
@@ -387,7 +392,7 @@
 }
 
 .custom-accordion .accordion-body {
-    background-color: #dfdddd;
+    background-color: #ffffff;
     color: white;
     padding: 20px;
     max-height: 260px; 
@@ -397,7 +402,13 @@
     color: white !important; 
 }
 
+.custom-accordion .accordion-button.collapsed {
+    background-color: #f4f4f4 !important;
+    color: black;
+}
+
 .accordion-body{
+    background-color: #ffffff;
     padding: 5px !important;
     padding-top: 15px !important;
     margin-bottom: 0 !important;
@@ -407,16 +418,16 @@
     overflow-x: auto !important;
 }
 
-.custom-accordion .accordion-button::after {
-    filter: invert(1); 
+.accordion-button:focus{
+    box-shadow: none;
 }
+
 /** ------------------- Tabela -------------------- */
 
 .table-container {
     width: 100%; 
     max-width: 400vw !important;
     white-space: nowrap; 
-    border: 1px solid #ccc; 
 }
 
 @media (max-width: 1400px){
@@ -443,7 +454,7 @@
 .custom-table {
     background-color: #0d5f71e6;
     white-space: nowrap; 
-    table-layout: fixed;
+    table-layout: fixed !important;
     border-collapse: collapse;
 }
 
