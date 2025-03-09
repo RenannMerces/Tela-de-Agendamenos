@@ -408,7 +408,7 @@
 
 .accordion-body{
     background-color: #ffffff;
-    padding: 5px !important;
+    padding: 0px !important;
     padding-top: 15px !important;
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
@@ -533,27 +533,115 @@
 
 /** ------------------ Aside -------------------- */
 
-.custom-aside {
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: 300px; 
-    background-color: #0d5f71e6;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transition: width 0.3s;
-}
+        .custom-aside {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 300px; 
+            background-color: #0d5f71e6;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: width 0.3s;
+        }
 
-.custom-aside h3 {
-    font-size: 24px;
-    margin-bottom: 30px;
-}
+        .custom-aside h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
 
-.calendar {
-    width: 100%;
-    text-align: center;
-}
+        .calendar {
+            width: 100%;
+            text-align: center;
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 10px; /* Menor espaçamento */
+            background: #0b4c5a;
+            border-radius: 5px;
+        }
+        
+        .calendar-header button {
+            font-size: 14px; 
+            padding: 5px;
+            border-radius: 5px;
+        }
+        
+        .calendar-body {
+            background-color: #fff;
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            padding: 15px;
+            border-radius: 0px 0px 5px 5px;
+        }
+        
+        .calendar-body div {
+            color: #0a192f;
+            padding: 8px; /* Reduzido o padding para uma aparência mais compacta */
+            text-align: center;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 12px; /* Tamanho da fonte reduzido */
+        }
+        
+        .calendar-body div:hover {
+            background: #2e8194;
+            color: white
+        }
+        
+        .selected-day {
+            background: #2e8194 !important;
+            color: white !important;
+        }
+        
+        .day-name {
+            font-weight: bold;
+            background: #0d5f71e6;
+            color: white !important;
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 12px; /* Tamanho reduzido */
+        }
+
+        .today {
+            background-color: #EDAD66  !important; 
+            color: white !important;
+        }
+        
+        /* Responsividade para telas menores */
+        @media (max-width: 768px) {
+            .custom-aside {
+                width: 200px; /* Ajusta o tamanho do aside em telas menores */
+            }
+        
+            .calendar-body div {
+                padding: 6px; /* Ajusta o padding para telas menores */
+                font-size: 10px; /* Reduz o tamanho da fonte em telas menores */
+            }
+        
+            .calendar-header button {
+                font-size: 12px; /* Menor ainda para telas menores */
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .custom-aside {
+                width: 180px; /* Ajusta o tamanho do aside em telas muito pequenas */
+            }
+        
+            .calendar-body div {
+                padding: 4px; /* Ajusta o padding para telas muito pequenas */
+                font-size: 9px; /* Reduz o tamanho da fonte ainda mais */
+            }
+        
+            .calendar-header button {
+                font-size: 10px; /* Botões ainda menores */
+            }
+        }

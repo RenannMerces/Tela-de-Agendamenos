@@ -104,3 +104,87 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }).observe(tabela, { childList: true });
 });
+
+//& ------------------------ CALENDÁRIO -------------------------- //
+
+document.addEventListener("DOMContentLoaded", () => {
+    const calendarDays = document.getElementById("calendarDays");
+    const currentMonthYear = document.getElementById("currentMonthYear");
+    const prevMonthBtn = document.getElementById("prevMonth");
+    const nextMonthBtn = document.getElementById("nextMonth");
+
+    let currentDate = new Date();
+    let selectedDate = null;
+    const today = new Date();  // Data de hoje, criada uma vez
+
+    const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+    const daysOfWeek = ["D", "S", "T", "Q", "Q", "S", "S"];
+
+    // Renderiza o calendário
+    const renderCalendar = () => {
+        calendarDays.innerHTML = "";
+        const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
+        const lastDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
+
+        currentMonthYear.textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+
+        // Adiciona os nomes dos dias da semana
+        daysOfWeek.forEach(day => {
+            const dayName = document.createElement("div");
+            dayName.textContent = day;
+            dayName.classList.add("day-name");
+            calendarDays.appendChild(dayName);
+        });
+
+        // Preenche os dias em branco antes do início do mês
+        [...Array(firstDay)].forEach(() => calendarDays.appendChild(document.createElement("div")));
+
+        // Adiciona os dias do mês
+        [...Array(lastDate)].forEach((_, i) => {
+            const dayDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), i + 1);
+            const dayElement = document.createElement("div");
+            dayElement.textContent = i + 1;
+
+            // Marca o dia de hoje
+            if (isToday(dayDate)) dayElement.classList.add("today");
+
+            // Marca o dia selecionado
+            if (selectedDate && isSameDay(selectedDate, dayDate)) dayElement.classList.add("selected-day");
+
+            // Marca o mês atual
+            if (isCurrentMonth(dayDate)) dayElement.classList.add("current-month");
+
+            dayElement.addEventListener("click", () => {
+                selectedDate = dayDate;
+                renderCalendar();
+            });
+
+            calendarDays.appendChild(dayElement);
+        });
+    };
+
+    // Verifica se a data fornecida é o dia de hoje
+    const isToday = (date) => date.toDateString() === today.toDateString();
+
+    // Verifica se duas datas são o mesmo dia
+    const isSameDay = (date1, date2) => date1.toDateString() === date2.toDateString();
+
+    // Verifica se a data pertence ao mês atual
+    const isCurrentMonth = (date) => date.getMonth() === currentDate.getMonth() && date.getFullYear() === currentDate.getFullYear();
+
+    // Navega para o mês anterior
+    prevMonthBtn.addEventListener("click", () => {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        renderCalendar();
+    });
+
+    // Navega para o próximo mês
+    nextMonthBtn.addEventListener("click", () => {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        renderCalendar();
+    });
+
+    // Inicializa o calendário
+    renderCalendar();
+});
+
