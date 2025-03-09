@@ -378,7 +378,6 @@
     color: #f8f9fa; 
 }
 
-.custom-accordion .accordion-button:hover,
 .custom-accordion .accordion-button:focus {
     background-color: #0d5f71e6 !important;
     color: #f8f9fa;
@@ -404,7 +403,7 @@
 
 .custom-accordion .accordion-button.collapsed {
     background-color: #f4f4f4 !important;
-    color: black;
+    color: black !important; 
 }
 
 .accordion-body{
@@ -422,6 +421,10 @@
     box-shadow: none;
 }
 
+.custom-accordion .accordion-button:hover{
+    background-color: #006078 !important;
+    color: #fff !important;
+}
 /** ------------------- Tabela -------------------- */
 
 .table-container {
