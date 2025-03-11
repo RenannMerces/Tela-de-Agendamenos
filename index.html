@@ -26,8 +26,9 @@
             <a href="#" class="nav-link" id="top-link" title="Consultas">
                 <i class="bi bi-house-door"></i><span>Consultas</span>
             </a>
-            <a href="#" class="nav-link" title="Cadastros">
+            <a class="nav-link" id="cadastro-btn" onclick="toggleCadastroModal(event)" title="Cadastros">
                 <i class="bi bi-person-plus"></i><span>Cadastros</span>
+                <i class="bi bi-chevron-down dropdown-arrow"></i>
             </a>
             <a href="#" class="nav-link" title="Registros">
                 <i class="bi bi-bar-chart"></i><span>Registros</span>
@@ -35,19 +36,30 @@
             <a href="#" class="nav-link" title="Relatórios">
                 <i class="bi bi-file-earmark-text"></i><span>Relatório</span>
             </a>
-            <a class="nav-link" id="transaction-btn" onclick="toggleModal(event)" title="Transação">
+            <a class="nav-link" id="transaction-btn" onclick="toggleTransactionModal(event)" title="Transação">
                 <i class="bi bi-currency-exchange"></i><span>Transação</span>
                 <i class="bi bi-chevron-down dropdown-arrow"></i>
             </a>
         </nav>
     </aside>
 
+    <!-- Modal de Transação -->
     <dialog id="transaction-modal" class="transaction-modal">
         <div class="modal-body">
             <a href="entrada.html" class="modal-item" aria-label="Tabela de Entrada"><i class="bi bi-arrow-down-circle"></i> Entrada</a>
             <a href="saida.html" class="modal-item" aria-label="Tabela de Saída"><i class="bi bi-arrow-up-circle"></i> Saída</a>
         </div>
     </dialog>
+
+    <!-- Modal de Cadastros -->
+    <dialog id="cadastro-modal" class="cadastro-modal">
+        <div class="modal-body">
+            <a href="paciente.html" class="modal-item" aria-label="Cadastro de Pacientes"><i class="bi bi-person"></i> Pacientes</a>
+            <a href="colaborador.html" class="modal-item" aria-label="Cadastro de Colaboradores"><i class="bi bi-briefcase"></i> Colaborador</a>
+            <a href="profissional.html" class="modal-item" aria-label="Cadastro de Profissionais"><i class="bi bi-clipboard-heart"></i> Profissional</a>
+        </div>
+    </dialog>
+
     
     <!-- Menu inferior (mobile) -->
     <section class="bottom-menu">
@@ -61,7 +73,7 @@
                 <a href="#" class="modal-item"><i class="bi bi-arrow-down-circle" title="Saída de Valores"></i> Saída</a>
             </div>
     </section>
-
+ 
     <!-- Conteudo principal -->
     <section class="container-fluid main-container">
 
@@ -134,7 +146,7 @@
 
     <aside class="custom-aside">
         <div class="text-center">
-            <h1 class="text-light">Terapinos</h3>
+            <h1 class="text-light">Terapinos</h1>
             <p>Organização é tudo</p>
             <div class="calendar">
                 <div id="calendar">
@@ -148,6 +160,10 @@
             </div>
         </div>
     </aside>
+    
+    <!-- Botão para abrir/fechar a aside -->
+    <button id="toggleAside" class="menu-button">☰</button>
+    
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="script.js"></script>

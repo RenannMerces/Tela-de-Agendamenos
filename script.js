@@ -105,6 +105,32 @@ document.addEventListener("DOMContentLoaded", () => {
     }).observe(tabela, { childList: true });
 });
 
+//! --------------------Side Direita Mobile ------------------
+
+document.addEventListener("DOMContentLoaded", function () {
+    const aside = document.querySelector(".custom-aside");
+    const toggleButton = document.getElementById("toggleAside");
+
+    toggleButton.addEventListener("click", function () {
+        if (aside.style.display === "none" || aside.style.display === "") {
+            aside.style.display = "flex"; 
+        } else {
+            aside.style.display = "none"; // Esconder o aside
+        }
+    });
+
+    function checkScreenSize() {
+        if (window.innerWidth <= 900) {
+            aside.style.display = "none"; // Ocultar aside por padrão
+        } else {
+            aside.style.display = "flex"; // Mostrar aside quando maior que 900px
+        }
+    }
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+});
+
 //& -------------------------------------------------------------- CALENDÁRIO ----------------------------------------------------------- //
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -290,4 +316,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Inicializa o calendário já mostrando os agendamentos do dia atual
     renderCalendar();
 });
+
+
 
