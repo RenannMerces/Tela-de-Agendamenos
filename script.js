@@ -262,7 +262,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                             <td>${profissional.paciente}</td>
                                             <td><span class="badge bg-warning text-dark">${profissional.status}</span></td>
                                             <td class="actions">
-                                                <button><i class="fas fa-pencil-alt text-warning"></i></button>
+                                                <button onclick="editAgendamento(event, ${index}, '${date}')"><i class="fas fa-pencil-alt text-warning"></i></button>
                                                 <button><i class="fas fa-trash text-danger"></i></button>
                                                 <button><i class="fas fa-dollar-sign text-success"></i></button>
                                                 <button><i class="fas fa-file-alt text-primary"></i></button>
@@ -318,4 +318,82 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+//& -------------------- Função de editar tabela ------------------
 
+// Função que permite editar os campos do agendamento
+const editAgendamento = (event, index, date) => {
+    const row = event.target.closest("tr");  // Obtém a linha do item da tabela
+    const cells = row.querySelectorAll("td"); // Obtém todas as células da linha
+
+    // Para cada célula, transforma o texto em um campo de input
+    cells.forEach((cell, i) => {
+        if (i < 5) {  // As 5 primeiras colunas podem ser editadas (Hora, Procedimento, Paciente, Status)
+            const currentText = cell.textContent.trim();
+            const input = document.createElement("input");
+            input.type = "text";
+            input.value = currentText;
+            input.classList.add("form-control");
+            cell.innerHTML = "";  // Limpa o conteúdo da célula
+            cell.appendChild(input);  // Adiciona o campo de input
+        }
+    });
+
+    // Altera o botão para permitir a confirmação da edição
+    const actionsCell = row.querySelector(".actions");
+    actionsCell.innerHTML = `
+        <button class="save-btn"><i class="fas fa-check text-success"></i></button>
+        <button class="cancel-btn"><i class="fas fa-times text-danger"></i></button>
+    `;
+
+    // Adiciona o comportamento de salvar e cancelar
+    row.querySelector(".save-btn").addEventListener("click", () => saveEdits(row, index, date));
+    row.querySelector(".cancel-btn").addEventListener("click", () => cancelEdits(row, date, index));
+};
+
+// Função para salvar as edições feitas
+const saveEdits = (row, index, date) => {
+    const inputs = row.querySelectorAll("input");
+    const updatedData = {
+        horario: inputs[0].value,  // Horário
+        procedimento: inputs[2].value,  // Procedimento
+        paciente: inputs[3].value,  // Paciente
+        status: inputs[4].value,  // Status
+    };
+
+    // Atualiza os dados de agendamento com os valores editados
+    agendamentos[date][index] = updatedData;
+
+    // Atualiza a linha com os novos valores
+    row.querySelector("td:nth-child(1)").textContent = updatedData.horario;
+    row.querySelector("td:nth-child(2)").textContent = date;
+    row.querySelector("td:nth-child(3)").textContent = updatedData.procedimento;
+    row.querySelector("td:nth-child(4)").textContent = updatedData.paciente;
+    row.querySelector("td:nth-child(5)").innerHTML = `<span class="badge bg-warning text-dark">${updatedData.status}</span>`;
+
+    // Restaura os botões de ação originais
+    row.querySelector(".actions").innerHTML = `
+        <button onclick="editAgendamento(event, ${index}, '${date}')"><i class="fas fa-pencil-alt text-warning"></i></button>
+        <button><i class="fas fa-trash text-danger"></i></button>
+        <button><i class="fas fa-dollar-sign text-success"></i></button>
+        <button><i class="fas fa-file-alt text-primary"></i></button>
+    `;
+};
+
+// Função para cancelar a edição
+const cancelEdits = (row, date, index) => {
+    // Reverte os campos para os valores originais
+    const profissional = agendamentos[date][index];
+    row.querySelector("td:nth-child(1)").textContent = profissional.horario;
+    row.querySelector("td:nth-child(2)").textContent = date;
+    row.querySelector("td:nth-child(3)").textContent = profissional.procedimento;
+    row.querySelector("td:nth-child(4)").textContent = profissional.paciente;
+    row.querySelector("td:nth-child(5)").innerHTML = `<span class="badge bg-warning text-dark">${profissional.status}</span>`;
+
+    // Restaura os botões de ação originais
+    row.querySelector(".actions").innerHTML = `
+        <button onclick="editAgendamento(event, ${index}, '${date}')"><i class="fas fa-pencil-alt text-warning"></i></button>
+        <button><i class="fas fa-trash text-danger"></i></button>
+        <button><i class="fas fa-dollar-sign text-success"></i></button>
+        <button><i class="fas fa-file-alt text-primary"></i></button>
+    `;
+};
