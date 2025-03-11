@@ -548,9 +548,8 @@
             transition: width 0.3s;
         }
 
-        .custom-aside h3 {
-            font-size: 24px;
-            margin-bottom: 20px;
+        .custom-aside p {
+            color: #D8A060;
         }
 
         .calendar {
