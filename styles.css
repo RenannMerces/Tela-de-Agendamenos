@@ -207,11 +207,6 @@
     z-index: 100 !important;
 }
 
-dialog {
-    z-index: 100 !important; /* O diálogo fica acima de tudo */
-    position: fixed; /* Mantém o diálogo fixo na tela */
-}
-
 .transaction-mini-modal .modal-item {
     display: block;
     padding: 8px 12px;
