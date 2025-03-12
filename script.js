@@ -115,15 +115,15 @@ document.addEventListener("DOMContentLoaded", function () {
         if (aside.style.display === "none" || aside.style.display === "") {
             aside.style.display = "flex"; 
         } else {
-            aside.style.display = "none"; // Esconder o aside
+            aside.style.display = "none"; 
         }
     });
 
     function checkScreenSize() {
         if (window.innerWidth <= 900) {
-            aside.style.display = "none"; // Ocultar aside por padrão
+            aside.style.display = "none"; 
         } else {
-            aside.style.display = "flex"; // Mostrar aside quando maior que 900px
+            aside.style.display = "flex"; 
         }
     }
 
