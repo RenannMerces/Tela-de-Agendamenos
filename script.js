@@ -318,24 +318,65 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-//& -------------------- Função de editar tabela ------------------
+// -------------------- Função de editar tabela ------------------
+// Função auxiliar para criar um campo de input
+const createInputField = (type, value) => {
+    const input = document.createElement("input");
+    input.type = type;
+    input.value = value;
+    input.classList.add("form-control");
+    return input;
+};
+
+// Função auxiliar para criar um select com opções
+const createSelectField = (options, selectedValue) => {
+    const select = document.createElement("select");
+    options.forEach(optionValue => {
+        const option = document.createElement("option");
+        option.value = option.textContent = optionValue;
+        if (optionValue === selectedValue) {
+            option.selected = true;
+        }
+        select.appendChild(option);
+    });
+    select.classList.add("form-control");
+    return select;
+};
 
 // Função que permite editar os campos do agendamento
 const editAgendamento = (event, index, date) => {
-    const row = event.target.closest("tr");  // Obtém a linha do item da tabela
+    const row = event.target.closest("tr"); // Obtém a linha do item da tabela
     const cells = row.querySelectorAll("td"); // Obtém todas as células da linha
 
-    // Para cada célula, transforma o texto em um campo de input
-    cells.forEach((cell, i) => {
-        if (i < 5) {  // As 5 primeiras colunas podem ser editadas (Hora, Procedimento, Paciente, Status)
-            const currentText = cell.textContent.trim();
-            const input = document.createElement("input");
-            input.type = "text";
-            input.value = currentText;
-            input.classList.add("form-control");
-            cell.innerHTML = "";  // Limpa o conteúdo da célula
-            cell.appendChild(input);  // Adiciona o campo de input
+    // Mapeamento de campos para edição com tipos de input
+    const inputConfig = [
+        { index: 0, type: 'time' }, 
+        { index: 1, type: 'date' },
+        { index: 2, type: 'select', options: ["Consulta", "Exame", "Cirurgia", "Tratamento"] }, 
+        { index: 3, type: 'text' }, 
+        { index: 4, type: 'select', options: ["Confirmado", "Pendente", "Cancelado"] } 
+    ];
+
+    inputConfig.forEach(config => {
+        const cell = cells[config.index];
+        const currentText = cell.textContent.trim();
+
+        // Armazena o valor original antes de substituir
+        cell.setAttribute("data-original", currentText);
+
+        let input;
+        if (config.type === 'time') {
+            input = createInputField('time', currentText);
+        } else if (config.type === 'date') {
+            input = createInputField('date', formatDateToInput(currentText));
+        } else if (config.type === 'select') {
+            input = createSelectField(config.options, currentText);
+        } else {
+            input = createInputField(config.type, currentText);
         }
+
+        cell.innerHTML = "";  // Limpa o conteúdo da célula
+        cell.appendChild(input);  // Adiciona o campo de input
     });
 
     // Altera o botão para permitir a confirmação da edição
@@ -347,28 +388,33 @@ const editAgendamento = (event, index, date) => {
 
     // Adiciona o comportamento de salvar e cancelar
     row.querySelector(".save-btn").addEventListener("click", () => saveEdits(row, index, date));
-    row.querySelector(".cancel-btn").addEventListener("click", () => cancelEdits(row, date, index));
+    row.querySelector(".cancel-btn").addEventListener("click", () => cancelEdits(row));
 };
 
 // Função para salvar as edições feitas
+// Função para salvar as edições feitas
 const saveEdits = (row, index, date) => {
-    const inputs = row.querySelectorAll("input");
-    const updatedData = {
-        horario: inputs[0].value,  // Horário
-        procedimento: inputs[2].value,  // Procedimento
-        paciente: inputs[3].value,  // Paciente
-        status: inputs[4].value,  // Status
-    };
+    const inputs = row.querySelectorAll("input, select");
 
-    // Atualiza os dados de agendamento com os valores editados
-    agendamentos[date][index] = updatedData;
+    // Obtém os valores editados
+    const updatedValues = [
+        inputs[0].value,  // Horário
+        inputs[1].value,  // Data
+        inputs[2].value,  // Procedimento
+        inputs[3].value,  // Paciente
+        inputs[4].value   // Status
+    ];
 
-    // Atualiza a linha com os novos valores
-    row.querySelector("td:nth-child(1)").textContent = updatedData.horario;
-    row.querySelector("td:nth-child(2)").textContent = date;
-    row.querySelector("td:nth-child(3)").textContent = updatedData.procedimento;
-    row.querySelector("td:nth-child(4)").textContent = updatedData.paciente;
-    row.querySelector("td:nth-child(5)").innerHTML = `<span class="badge bg-warning text-dark">${updatedData.status}</span>`;
+    // Atualiza a célula da tabela com os novos valores
+    row.querySelectorAll("td").forEach((cell, i) => {
+        if (i < 5) { // Atualiza apenas as 5 primeiras células (evita a de ações)
+            if (i === 4) { 
+                cell.innerHTML = `<span class="badge bg-warning text-dark">${updatedValues[i]}</span>`; // Formata status como badge
+            } else {
+                cell.textContent = updatedValues[i];
+            }
+        }
+    });
 
     // Restaura os botões de ação originais
     row.querySelector(".actions").innerHTML = `
@@ -379,21 +425,31 @@ const saveEdits = (row, index, date) => {
     `;
 };
 
+
+
 // Função para cancelar a edição
-const cancelEdits = (row, date, index) => {
-    // Reverte os campos para os valores originais
-    const profissional = agendamentos[date][index];
-    row.querySelector("td:nth-child(1)").textContent = profissional.horario;
-    row.querySelector("td:nth-child(2)").textContent = date;
-    row.querySelector("td:nth-child(3)").textContent = profissional.procedimento;
-    row.querySelector("td:nth-child(4)").textContent = profissional.paciente;
-    row.querySelector("td:nth-child(5)").innerHTML = `<span class="badge bg-warning text-dark">${profissional.status}</span>`;
+const cancelEdits = (row) => {
+    const cells = row.querySelectorAll("td");
+
+    // Reverte os valores para os originais armazenados
+    cells.forEach(cell => {
+        const originalValue = cell.getAttribute("data-original");
+        if (originalValue !== null) {
+            cell.textContent = originalValue;
+        }
+    });
 
     // Restaura os botões de ação originais
     row.querySelector(".actions").innerHTML = `
-        <button onclick="editAgendamento(event, ${index}, '${date}')"><i class="fas fa-pencil-alt text-warning"></i></button>
+        <button onclick="editAgendamento(event, 0, '')"><i class="fas fa-pencil-alt text-warning"></i></button>
         <button><i class="fas fa-trash text-danger"></i></button>
         <button><i class="fas fa-dollar-sign text-success"></i></button>
         <button><i class="fas fa-file-alt text-primary"></i></button>
     `;
+};
+
+// Função auxiliar para formatar a data para o formato aceito pelo input do tipo "date"
+const formatDateToInput = (dateString) => {
+    const [day, month, year] = dateString.split('/');
+    return `${year}-${month}-${day}`;
 };
