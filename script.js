@@ -318,7 +318,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-// -------------------- Função de editar tabela ------------------
+//&  -------------------------------- Função de editar tabela -------------------------------
 // Função auxiliar para criar um campo de input
 const createInputField = (type, value) => {
     const input = document.createElement("input");
@@ -399,19 +399,23 @@ const saveEdits = (row, index, date) => {
     // Obtém os valores editados
     const updatedValues = [
         inputs[0].value,  // Horário
-        inputs[1].value,  // Data
+        formatDateToDisplay(inputs[1].value),  // Converte a data para formato brasileiro
         inputs[2].value,  // Procedimento
         inputs[3].value,  // Paciente
         inputs[4].value   // Status
     ];
 
-    // Atualiza a célula da tabela com os novos valores
+    // Atualiza as células da tabela com os valores novos
     row.querySelectorAll("td").forEach((cell, i) => {
-        if (i < 5) { // Atualiza apenas as 5 primeiras células (evita a de ações)
-            if (i === 4) { 
-                cell.innerHTML = `<span class="badge bg-warning text-dark">${updatedValues[i]}</span>`; // Formata status como badge
+        if (i < 5) { // Atualiza apenas as 5 primeiras células (evita a célula de ações)
+            if (i === 1) { 
+                // Se for a célula de data, garantir que ela exiba o formato correto
+                cell.textContent = updatedValues[i] || cell.getAttribute("data-original"); 
+            } else if (i === 4) { 
+                // Formata status como badge
+                cell.innerHTML = `<span class="badge bg-warning text-dark">${updatedValues[i]}</span>`; 
             } else {
-                cell.textContent = updatedValues[i];
+                cell.textContent = updatedValues[i] || cell.getAttribute("data-original");
             }
         }
     });
@@ -424,7 +428,6 @@ const saveEdits = (row, index, date) => {
         <button><i class="fas fa-file-alt text-primary"></i></button>
     `;
 };
-
 
 
 // Função para cancelar a edição
@@ -448,8 +451,17 @@ const cancelEdits = (row) => {
     `;
 };
 
-// Função auxiliar para formatar a data para o formato aceito pelo input do tipo "date"
 const formatDateToInput = (dateString) => {
-    const [day, month, year] = dateString.split('/');
-    return `${year}-${month}-${day}`;
+    if (!dateString) return ""; 
+    const parts = dateString.split('/');
+    if (parts.length === 3) {
+        return `${parts[2]}-${parts[1]}-${parts[0]}`;
+    }
+    return dateString;
+};
+
+const formatDateToDisplay = (dateString) => {
+    if (!dateString) return ""; 
+    const [year, month, day] = dateString.split('-');
+    return `${day}/${month}/${year}`;
 };
