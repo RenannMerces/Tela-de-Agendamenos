@@ -149,25 +149,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Simulando dados de agendamentos com múltiplos profissionais no mesmo dia
     const agendamentos = {
-        "08/03/2025": [
-            { nome: "Dr. João da Silva", horario: "16:00", procedimento: "Exame", paciente: "Pedro Lima", status: "Pendente" },
-            { nome: "Dra. Fernanda Costa", horario: "17:00", procedimento: "Consulta", paciente: "Lucas Souza", status: "Confirmado" },
-            { nome: "Dra. Fernanda Costa", horario: "17:00", procedimento: "Consulta", paciente: "Lucas Souza", status: "Confirmado" },
-            { nome: "Dra. Fernanda Costa", horario: "17:00", procedimento: "Consulta", paciente: "Lucas Souza", status: "Confirmado" },
-            { nome: "Dra. Fernanda Costa", horario: "17:00", procedimento: "Consulta", paciente: "Lucas Souza", status: "Confirmado" },
-            { nome: "Dra. Fernanda Costa", horario: "17:00", procedimento: "Consulta", paciente: "Lucas Souza", status: "Confirmado" },
-            { nome: "Dra. Fernanda Costa", horario: "17:00", procedimento: "Consulta", paciente: "Lucas Souza", status: "Confirmado" },
-            { nome: "Dra. Fernanda Costa", horario: "17:00", procedimento: "Consulta", paciente: "Lucas Souza", status: "Confirmado" },
-            { nome: "Dra. Fernanda Costa", horario: "17:00", procedimento: "Consulta", paciente: "Lucas Souza", status: "Confirmado" },
-            { nome: "Dra. Fernanda Costa", horario: "17:00", procedimento: "Consulta", paciente: "Lucas Souza", status: "Confirmado" },
-            { nome: "Dra. Fernanda Costa", horario: "17:00", procedimento: "Consulta", paciente: "Lucas Souza", status: "Confirmado" },
-            { nome: "Dra. Fernanda Costa", horario: "17:00", procedimento: "Consulta", paciente: "Lucas Souza", status: "Confirmado" },
-            
-        ],
-        "10/03/2025": [
-            { nome: "Dra. Maria Oliveira", horario: "14:00", procedimento: "Consulta", paciente: "Ana Souza", status: "Confirmado" }
-        ]
+        "08/03/2025": {
+            "Dr. João da Silva": [
+                { horario: "16:00", procedimento: "Exame", paciente: "Pedro Lima", status: "Pendente" }
+            ],
+            "Dra. Fernanda Costa": [
+                { horario: "17:00", procedimento: "Consulta", paciente: "Lucas Souza", status: "Confirmado" },
+                { horario: "17:30", procedimento: "Consulta", paciente: "Mariana Alves", status: "Pendente" }
+            ]
+        },
+        "10/03/2025": {
+            "Dra. Maria Oliveira": [
+                { horario: "14:00", procedimento: "Consulta", paciente: "Ana Souza", status: "Confirmado" }
+            ]
+        }
     };
+    
 
     // Renderiza o calendário
     const renderCalendar = () => {
@@ -221,23 +218,25 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // Atualiza os acordeões de acordo com a data selecionada
     const updateAgendamentos = (date) => {
         accordionContainer.innerHTML = ""; // Limpa o conteúdo anterior
-
+    
         if (agendamentos[date]) {
             const accordion = document.createElement("div");
             accordion.classList.add("accordion", "custom-accordion");
             accordion.id = "accordionAgendamentos";
-
-            agendamentos[date].forEach((profissional, index) => {
+    
+            let index = 0;
+    
+            // Percorre os profissionais do dia selecionado
+            Object.entries(agendamentos[date]).forEach(([profissionalNome, agendas]) => {
                 const accordionItem = document.createElement("div");
                 accordionItem.classList.add("accordion-item");
-
+    
                 accordionItem.innerHTML = `
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#profissional${index}">
-                            <span class="truncate">${profissional.nome}</span>
+                            <span class="truncate">${profissionalNome}</span>
                         </button>
                     </h2>
                     <div id="profissional${index}" class="accordion-collapse collapse" data-bs-parent="#accordionAgendamentos">
@@ -255,34 +254,47 @@ document.addEventListener("DOMContentLoaded", () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>${profissional.horario}</td>
-                                            <td>${date}</td>
-                                            <td>${profissional.procedimento}</td>
-                                            <td>${profissional.paciente}</td>
-                                            <td><span class="badge bg-warning text-dark">${profissional.status}</span></td>
-                                            <td class="actions">
-                                                <button onclick="editAgendamento(event, ${index}, '${date}')"><i class="fas fa-pencil-alt text-warning"></i></button>
-                                                <button><i class="fas fa-trash text-danger"></i></button>
-                                                <button><i class="fas fa-dollar-sign text-success"></i></button>
-                                                <button><i class="fas fa-file-alt text-primary"></i></button>
-                                            </td>
-                                        </tr>  
+                                        ${agendas.map(agenda => `
+                                            <tr>
+                                                <td>${agenda.horario}</td>
+                                                <td>${date}</td>
+                                                <td class="truncate2">${agenda.procedimento}</td>
+                                                <td class="truncate2">${agenda.paciente}</td>
+                                                <td>
+                                                    <span class="badge ${getStatusBadgeClass(agenda.status)}">${agenda.status}</span>
+                                                </td>
+                                                <td class="actions">
+                                                    <button onclick="editAgendamento(event, ${index}, '${date}')">
+                                                        <i class="fas fa-pencil-alt text-warning"></i>
+                                                    </button>
+                                                    <button>
+                                                        <i class="fas fa-trash text-danger"></i>
+                                                    </button>
+                                                    <button>
+                                                        <i class="fas fa-dollar-sign text-success"></i>
+                                                    </button>
+                                                    <button>
+                                                        <i class="fas fa-file-alt text-primary"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        `).join("")}
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 `;
-
+    
                 accordion.appendChild(accordionItem);
+                index++;
             });
-
+    
             accordionContainer.appendChild(accordion);
         } else {
             accordionContainer.innerHTML = "<p class='text-center mt-3'>Nenhum agendamento para esta data.</p>";
         }
-    };
+    };  
 
     // Formata a data para o padrão dd/mm/yyyy
     const formatDate = (date) => {
@@ -392,7 +404,6 @@ const editAgendamento = (event, index, date) => {
 };
 
 // Função para salvar as edições feitas
-// Função para salvar as edições feitas
 const saveEdits = (row, index, date) => {
     const inputs = row.querySelectorAll("input, select");
 
@@ -428,6 +439,20 @@ const saveEdits = (row, index, date) => {
         <button><i class="fas fa-file-alt text-primary"></i></button>
     `;
 };
+
+    
+const getStatusBadgeClass = (status) => {
+    switch(status) {
+        case "Confirmado":
+            return "bg-success text-light"; 
+        case "Pendente":
+            return "bg-warning text-dark"; 
+        case "Cancelado":
+            return "bg-danger text-light";  
+        default:
+            return "bg-secondary text-light"; 
+    }
+};  
 
 
 // Função para cancelar a edição
