@@ -1,10 +1,10 @@
-//* --------------Função hamburguer ----------------------//
+//* ----------------------------Função hamburguer ----------------------//
 
 function toggleSidebar() {
     document.getElementById("sidebar").classList.toggle("expanded");
 }
 
-// * ------------- Função dropdawn/modal -----------------//
+// * ------------------------ Função dropdawn/modal -----------------------//
 document.addEventListener("DOMContentLoaded", function () {
     const transactionBtn = document.getElementById("transaction-btn") || document.querySelector(".transaction-btn");
     const transactionModal = document.getElementById("transaction-modal") || document.querySelector(".transaction-mini-modal");
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-//* ------ Truncate (aparecer o nome do coiso ao passar o mouse)-----------------//
+//* --------------- Truncate (aparecer o nome do coiso ao passar o mouse)------------------//
 
 document.addEventListener("DOMContentLoaded", function() {
     function aplicarTooltip() {
@@ -72,37 +72,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     aplicarTooltip();
     window.addEventListener("resize", aplicarTooltip);
-});
-
-//* ----------------- Botões de ação tabela -----------------//
-
-document.addEventListener("DOMContentLoaded", () => {
-    const tabela = document.querySelector(".custom-table tbody");
-
-    if (!tabela) return;
-
-    const iconesAcoes = `
-        <td class="actions">
-            <i class="fas fa-pencil-alt text-warning"></i>
-            <i class="fas fa-trash text-danger"></i>
-            <i class="fas fa-dollar-sign text-success"></i>
-            <i class="fas fa-file-alt text-primary"></i>
-        </td>
-    `;
-
-    const adicionarAcoes = (linha) => {
-        if (!linha.querySelector(".actions")) linha.insertAdjacentHTML("beforeend", iconesAcoes);
-    };
-
-    tabela.querySelectorAll("tr").forEach(adicionarAcoes);
-
-    new MutationObserver((mutacoes) => {
-        mutacoes.forEach((mutacao) => {
-            mutacao.addedNodes.forEach((node) => {
-                if (node.nodeType === 1 && node.tagName === "TR") adicionarAcoes(node);
-            });
-        });
-    }).observe(tabela, { childList: true });
 });
 
 //! --------------------Side Direita Mobile ------------------
@@ -155,7 +124,8 @@ document.addEventListener("DOMContentLoaded", () => {
             ],
             "Dra. Fernanda Costa": [
                 { horario: "17:00", procedimento: "Consulta", paciente: "Lucas Souza", status: "Confirmado" },
-                { horario: "17:30", procedimento: "Consulta", paciente: "Mariana Alves", status: "Pendente" }
+                { horario: "17:30", procedimento: "Consulta", paciente: "Mariana Alves", status: "Pendente" },
+                { horario: "17:30", procedimento: "Consulta", paciente: "Mariana Alves", status: "Pendente" },
             ]
         },
         "10/03/2025": {
@@ -165,7 +135,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
     
-
     // Renderiza o calendário
     const renderCalendar = () => {
         calendarDays.innerHTML = "";
@@ -228,7 +197,6 @@ document.addEventListener("DOMContentLoaded", () => {
     
             let index = 0;
     
-            // Percorre os profissionais do dia selecionado
             Object.entries(agendamentos[date]).forEach(([profissionalNome, agendas]) => {
                 const accordionItem = document.createElement("div");
                 accordionItem.classList.add("accordion-item");
@@ -254,7 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        ${agendas.map(agenda => `
+                                        ${agendas.map((agenda, agendaIndex) => `
                                             <tr>
                                                 <td>${agenda.horario}</td>
                                                 <td>${date}</td>
@@ -264,10 +232,10 @@ document.addEventListener("DOMContentLoaded", () => {
                                                     <span class="badge ${getStatusBadgeClass(agenda.status)}">${agenda.status}</span>
                                                 </td>
                                                 <td class="actions">
-                                                    <button onclick="editAgendamento(event, ${index}, '${date}')">
+                                                    <button onclick="editAgendamento(event, ${agendaIndex}, '${date}')">
                                                         <i class="fas fa-pencil-alt text-warning"></i>
                                                     </button>
-                                                    <button>
+                                                    <button onclick="deleteAgendamento(event)">
                                                         <i class="fas fa-trash text-danger"></i>
                                                     </button>
                                                     <button>
@@ -294,7 +262,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             accordionContainer.innerHTML = "<p class='text-center mt-3'>Nenhum agendamento para esta data.</p>";
         }
-    };  
+    };
 
     // Formata a data para o padrão dd/mm/yyyy
     const formatDate = (date) => {
@@ -330,7 +298,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-//&  -------------------------------- Função de editar tabela -------------------------------
+//&  -------------------------------- Função de editar/excluir iten da tabela -------------------------------
 // Função auxiliar para criar um campo de input
 const createInputField = (type, value) => {
     const input = document.createElement("input");
@@ -403,17 +371,26 @@ const editAgendamento = (event, index, date) => {
     row.querySelector(".cancel-btn").addEventListener("click", () => cancelEdits(row));
 };
 
+// Função de excluir agendamento
+const deleteAgendamento = (event) => {
+    const confirmation = confirm("Tem certeza que deseja excluir este agendamento?");
+    if (confirmation) {
+        const row = event.target.closest("tr"); // Obtém a linha do item da tabela
+        row.remove(); // Remove a linha da tabela
+    }
+};
+
 // Função para salvar as edições feitas
 const saveEdits = (row, index, date) => {
     const inputs = row.querySelectorAll("input, select");
 
     // Obtém os valores editados
     const updatedValues = [
-        inputs[0].value,  // Horário
-        formatDateToDisplay(inputs[1].value),  // Converte a data para formato brasileiro
-        inputs[2].value,  // Procedimento
-        inputs[3].value,  // Paciente
-        inputs[4].value   // Status
+        inputs[0].value, 
+        formatDateToDisplay(inputs[1].value),  
+        inputs[2].value,  
+        inputs[3].value,  
+        inputs[4].value   
     ];
 
     // Atualiza as células da tabela com os valores novos
@@ -424,22 +401,26 @@ const saveEdits = (row, index, date) => {
                 cell.textContent = updatedValues[i] || cell.getAttribute("data-original"); 
             } else if (i === 4) { 
                 // Formata status como badge
-                cell.innerHTML = `<span class="badge bg-warning text-dark">${updatedValues[i]}</span>`; 
+                cell.innerHTML = `<span class="badge ${getStatusBadgeClass(updatedValues[i])}">${updatedValues[i]}</span>`; 
             } else {
                 cell.textContent = updatedValues[i] || cell.getAttribute("data-original");
             }
         }
     });
+    
 
     // Restaura os botões de ação originais
     row.querySelector(".actions").innerHTML = `
         <button onclick="editAgendamento(event, ${index}, '${date}')"><i class="fas fa-pencil-alt text-warning"></i></button>
-        <button><i class="fas fa-trash text-danger"></i></button>
+        <button class="delete-btn"><i class="fas fa-trash text-danger"></i></button>
         <button><i class="fas fa-dollar-sign text-success"></i></button>
         <button><i class="fas fa-file-alt text-primary"></i></button>
     `;
-};
 
+// Reatribui o evento ao botão de exclusão
+row.querySelector(".delete-btn").addEventListener("click", (event) => deleteAgendamento(event));
+
+};
     
 const getStatusBadgeClass = (status) => {
     switch(status) {
@@ -454,27 +435,34 @@ const getStatusBadgeClass = (status) => {
     }
 };  
 
-
 // Função para cancelar a edição
 const cancelEdits = (row) => {
     const cells = row.querySelectorAll("td");
 
     // Reverte os valores para os originais armazenados
-    cells.forEach(cell => {
+    cells.forEach((cell, index) => {
         const originalValue = cell.getAttribute("data-original");
         if (originalValue !== null) {
-            cell.textContent = originalValue;
+            if (index === 4) { // Se for a célula do status
+                cell.innerHTML = `<span class="badge ${getStatusBadgeClass(originalValue)}">${originalValue}</span>`;
+            } else {
+                cell.textContent = originalValue;
+            }
         }
     });
 
     // Restaura os botões de ação originais
     row.querySelector(".actions").innerHTML = `
         <button onclick="editAgendamento(event, 0, '')"><i class="fas fa-pencil-alt text-warning"></i></button>
-        <button><i class="fas fa-trash text-danger"></i></button>
+        <button class="delete-btn"><i class="fas fa-trash text-danger"></i></button>
         <button><i class="fas fa-dollar-sign text-success"></i></button>
         <button><i class="fas fa-file-alt text-primary"></i></button>
     `;
+
+    // Reatribui o evento ao botão de exclusão
+    row.querySelector(".delete-btn").addEventListener("click", (event) => deleteAgendamento(event));
 };
+
 
 const formatDateToInput = (dateString) => {
     if (!dateString) return ""; 
