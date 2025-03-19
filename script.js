@@ -59,21 +59,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-//* --------------- Truncate (aparecer o nome do coiso ao passar o mouse)------------------//
-
-document.addEventListener("DOMContentLoaded", function() {
-    function aplicarTooltip() {
-        document.querySelectorAll(".truncate").forEach(function(element) {
-            element.removeAttribute("title");
-            if (element.offsetWidth < element.scrollWidth) {
-                element.setAttribute("title", element.textContent.trim());
-            }
-        });
-    }
-    aplicarTooltip();
-    window.addEventListener("resize", aplicarTooltip);
-});
-
 //! --------------------Side Direita Mobile ------------------
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -98,6 +83,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     checkScreenSize();
     window.addEventListener("resize", checkScreenSize);
+});
+
+// * ------------------------- FILTRO ---------------------------
+
+document.getElementById('aplicarFiltro').addEventListener('click', function() {
+    const tipoProcedimento = document.getElementById('tipoProcedimento').value;
+    const horario = document.getElementById('horario').value;
+    const status = document.getElementById('status').value;
+
+    const selectedDate = formatDate(new Date()); // Data selecionada no calendário
+    updateAgendamentos(selectedDate, tipoProcedimento, horario, status);
+
+    var myModal = bootstrap.Modal.getInstance(document.getElementById('filtroModal'));
+    myModal.hide();
 });
 
 //& -------------------------------------------------------------- CALENDÁRIO ----------------------------------------------------------- //

@@ -74,31 +74,78 @@
             </div>
     </section>
  
-    <!-- Conteudo principal -->
-    <section class="container-fluid main-container">
+<!-- Conteúdo principal -->
+<section class="container-fluid main-container">
 
-        <!-- Seção de Agendamentos -->
-        <section class="content-section">
-            <h2 class="text-center mb-3 titulo-pag" title="Agendamentos">Agendamentos</h2>
+    <!-- Seção de Agendamentos -->
+    <section class="content-section">
+        <h2 class="text-center mb-3 titulo-pag" title="Agendamentos">Agendamentos</h2>
 
-            <!-- Barra de pesquisa -->
-            <div class="search-container mb-3">
-                <input type="text" class="form-control search-input" placeholder="Buscar..." title="Campo de pesquisa">
-            </div>
+        <!-- Barra de pesquisa -->
+        <div class="search-container mb-3">
+            <input type="text" class="form-control search-input" placeholder="Buscar..." title="Campo de pesquisa">
+        </div>
 
-            <!-- Botões -->
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <button class="btn btn-warning" title="Novo agendamento"><i class="bi bi-plus-lg"></i> Novo</button>
-                <button class="btn btn-light" id="btnFiltro" title="Filtro"><i class="bi bi-funnel"></i> Filtro</button>
-            </div>
-            <!-- Acordeão de Profissionais -->
-                <section class="accordion-container">
-                    <div class="accordion custom-accordion" id="accordionAgendamentos">
+        <!-- Botões -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <button class="btn btn-warning" title="Novo agendamento"><i class="bi bi-plus-lg"></i> Novo</button>
+            <button class="btn btn-light" id="btnFiltro" title="Filtro" data-bs-toggle="modal" data-bs-target="#filtroModal"><i class="bi bi-funnel"></i> Filtro</button>
+        </div>
 
+        <!-- Modal de Filtro -->
+        <div class="modal fade" id="filtroModal" tabindex="-1" aria-labelledby="filtroModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-filtro-container modal-dialog-centered">
+                <div class="modal-content modal-filtro-content">
+                    <div class="modal-header modal-filtro-header">
+                        <h5 class="modal-title" id="filtroModalLabel">Filtrar Agendamentos</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                     </div>
-                </section>
+                    <div class="modal-body modal-filtro-body">
+                        <!-- Tipo de Procedimento -->
+                        <div class="mb-3 filtro-item">
+                            <label for="tipoProcedimento" class="form-label">Tipo de Procedimento</label>
+                            <select class="form-select" id="tipoProcedimento">
+                                <option value="">Selecione</option>
+                                <option value="exame">Exame</option>
+                                <option value="consulta">Consulta</option>
+                                <option value="cirurgia">Cirurgia</option>
+                            </select>
+                        </div>
+
+                        <!-- Horário -->
+                        <div class="mb-3 filtro-item">
+                            <label for="horario" class="form-label">Horário</label>
+                            <input type="time" class="form-control" id="horario">
+                        </div>
+
+                        <!-- Status -->
+                        <div class="mb-3 filtro-item">
+                            <label for="status" class="form-label">Status</label>
+                            <select class="form-select" id="status">
+                                <option value="">Selecione</option>
+                                <option value="confirmado">Confirmado</option>
+                                <option value="pendente">Pendente</option>
+                                <option value="cancelado">Cancelado</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer modal-filtro-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="aplicarFiltro">Aplicar Filtro</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Acordeão de Agendamentos -->
+        <section class="accordion-container">
+            <div class="accordion custom-accordion" id="accordionAgendamentos">
+                <!-- Os agendamentos serão carregados aqui -->
+            </div>
         </section>
     </section>
+</section>
+
 
     <aside class="custom-aside">
         <div class="text-center">

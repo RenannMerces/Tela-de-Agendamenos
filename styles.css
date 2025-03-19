@@ -325,6 +325,58 @@
     border: solid #EDAD66;
 }
 
+/** ------------------------- Filtro ---------------------- */
+
+.modal-filtro-container {
+    max-width: 500px;
+}
+.modal-filtro-body {
+    display: flex;
+    flex-direction: column;
+}
+.modal-filtro-header {
+    background-color: #0d5f71e6;
+    border-bottom: 1px solid #dee2e6;
+    color: white;
+}
+.modal-filtro-footer {
+    display: flex;
+    justify-content: flex-end;
+    background-color: #0d5f71e6;
+}
+.filtro-item {
+    margin-bottom: 1rem;
+}
+.filtro-item .form-label {
+    font-weight: bold;
+}
+.modal-filtro-footer .btn-secondary{
+    background-color: #ee6161 !important;
+    border: 2px solid #ee6161 !important;
+    transition: 0.2s;
+}
+.modal-filtro-footer .btn-secondary:hover{
+    background-color: #e74747 !important;
+    border: 2px solid #e74747 !important;;
+}
+.modal-filtro-footer .btn-primary{
+    background-color: #D8A060 !important;
+    border: 2px solid #D8A060 !important;
+    transition: 0.2s;
+}
+.modal-filtro-footer .btn-primary:hover{
+    background-color: #ea993d !important;
+    border: 2px solid #ea993d !important;
+}
+
+.modal-header .btn-close{
+    background-color: #fff !important;
+    transition: 0.2s;
+}
+.modal-header .btn-close:hover{
+    background-color: white !important;
+}
+
 /** ------------------ Truncamento de Texto ------------------ */
 .truncate {
     display: inline-block;
