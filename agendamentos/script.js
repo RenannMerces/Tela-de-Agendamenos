@@ -240,9 +240,6 @@ document.addEventListener("DOMContentLoaded", () => {
                                                     <button>
                                                         <i class="fas fa-dollar-sign text-success"></i>
                                                     </button>
-                                                    <button>
-                                                        <i class="fas fa-file-alt text-primary"></i>
-                                                    </button>
                                                 </td>
                                             </tr>
                                         `).join("")}
@@ -406,14 +403,12 @@ const saveEdits = (row, index, date) => {
             }
         }
     });
-    
 
     // Restaura os botões de ação originais
     row.querySelector(".actions").innerHTML = `
         <button onclick="editAgendamento(event, ${index}, '${date}')"><i class="fas fa-pencil-alt text-warning"></i></button>
         <button class="delete-btn"><i class="fas fa-trash text-danger"></i></button>
         <button><i class="fas fa-dollar-sign text-success"></i></button>
-        <button><i class="fas fa-file-alt text-primary"></i></button>
     `;
 
 // Reatribui o evento ao botão de exclusão
@@ -455,7 +450,6 @@ const cancelEdits = (row) => {
         <button onclick="editAgendamento(event, 0, '')"><i class="fas fa-pencil-alt text-warning"></i></button>
         <button class="delete-btn"><i class="fas fa-trash text-danger"></i></button>
         <button><i class="fas fa-dollar-sign text-success"></i></button>
-        <button><i class="fas fa-file-alt text-primary"></i></button>
     `;
 
     // Reatribui o evento ao botão de exclusão
