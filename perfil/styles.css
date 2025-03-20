@@ -326,6 +326,11 @@
     border: 1px solid #D8A060;
 }
 
+.btn-principais .btn.active{
+    background-color: #D8A060 !important;
+    border: 1px solid #D8A060 !important;
+}
+
 .btn-principais button:active {
     background-color: #D8A060 !important;
     border: 1px solid #D8A060 !important;
@@ -451,3 +456,91 @@
     }
 }
 
+/** ------------------ Calendário ------------------ */
+#calendario .calendar {
+    width: 300px; 
+    text-align: center;
+}
+
+#calendario .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px; 
+    background: #0b4c5a;
+    border-radius: 5px;
+    color: #fff;
+}
+
+#calendario .calendar-header button {
+    width: 30px;
+    font-size: 14px; 
+    border-radius: 5px;
+}
+
+#calendario .calendar-body {
+    background-color: #f0ecec;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    padding: 15px;
+    border-radius: 0px 0px 5px 5px;
+}
+
+#calendario .calendar-body div {
+    color: #0a192f;
+    padding: 8px; 
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 12px; 
+}
+
+#calendario .calendar-body div:hover {
+    background: #2e8194;
+    color: white;
+}
+
+#calendario .selected-day {
+    background: #2e8194 !important;
+    color: white !important;
+}
+
+#calendario .day-name {
+    font-weight: bold;
+    background: #0d5f71e6;
+    color: white !important;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px; 
+}
+
+#calendario .today {
+    background-color: #EDAD66 !important; 
+    color: white !important;
+}
+
+
+@media (max-width: 990px) {
+    #formAgendamento .row {
+        flex-direction: column;
+        align-items: center;
+    }
+    #formAgendamento .col-md-7 {
+        width: 100%; 
+    }
+
+    #formAgendamento #calendario .calendar {
+        width: 300px; 
+        margin: 20px auto; 
+    }
+
+    #formAgendamento .d-flex {
+        justify-content: center !important; 
+        width: 100%;
+    }
+
+    #formAgendamento .btn {
+        align-items: center;
+    }
+}
