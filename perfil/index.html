@@ -83,17 +83,17 @@
         <!-- Botões de menu -->
         <section class="row btn-principais mt-5">
             <div class="col">
-                <button class="btn btn-primary menu-btn" id="btnEditarPerfil">
+                <button class="btn btn-primary menu-btn" id="btnEditarPerfil" title="Editar Perfil">
                     <i class="fas fa-user-edit icon-only"></i> <span class="text-only">Editar Perfil</span>
                 </button>
             </div>
             <div class="col">
-                <button class="btn btn-secondary menu-btn" id="btnInfoPrincipal">
+                <button class="btn btn-secondary menu-btn" id="btnInfoPrincipal" title="Informação Principal">
                     <i class="fas fa-info-circle icon-only"></i> <span class="text-only">Informação Principal</span>
                 </button>
             </div>
             <div class="col">
-                <button class="btn btn-secondary menu-btn" id="btnAgendamento">
+                <button class="btn btn-secondary menu-btn" id="btnAgendamento" title="Agendamentos">
                     <i class="fas fa-calendar-alt icon-only"></i> <span class="text-only">Agendamento</span>
                 </button>
             </div>
@@ -104,33 +104,33 @@
             <form id="perfilForm">
                 <div class="row">
                     <div class="col-md-6">
-                        <label for="nome" class="form-label">Nome de Usuário</label>
+                        <label for="nome" class="form-label" title="Nome de Usuário">Nome de Usuário</label>
                         <input type="text" placeholder="Digite seu nome..." class="form-control" id="nome">
                     </div>
                     <div class="col-md-6">
-                        <label for="cpf" class="form-label">CPF</label>
+                        <label for="cpf" class="form-label" title="CPF">CPF</label>
                         <input type="text" placeholder="000.000.000-00" class="form-control" id="cpf">
                     </div>
                     <div class="col-md-6">
-                        <label for="email" class="form-label">E-mail</label>
+                        <label for="email" class="form-label" title="E-mail">E-mail</label>
                         <input type="email" placeholder="exemplo@gmail.com" class="form-control" id="email">
                     </div>
                     <div class="col-md-6">
-                        <label for="dataNascimento" class="form-label">Data de Nascimento</label>
+                        <label for="dataNascimento" class="form-label" title="Data de Nascimento">Data de Nascimento</label>
                         <input type="date" class="form-control" id="dataNascimento">
                     </div>
                     <div class="col-md-6">
-                        <label for="telefone" class="form-label">Telefone 1</label>
+                        <label for="telefone" class="form-label" title="Telefone 1">Telefone 1</label>
                         <input type="text" placeholder="(00) 00000-0000" class="form-control" id="telefone">
                     </div>
                     <div class="col-md-6">
-                        <label for="telefone2" class="form-label">Telefone 2</label>
+                        <label for="telefone2" class="form-label" title="Telefone 2">Telefone 2</label>
                         <input type="text" placeholder="(00) 00000-0000" class="form-control" id="telefone2">
                     </div>
                 </div>
                 <div class="d-flex justify-content-center mt-4 mb-5">
-                    <button type="submit" class="btn btn-success">Salvar</button>
-                    <button type="reset" class="btn btn-danger ms-3" id="btnCancelar">Cancelar</button>
+                    <button type="submit" class="btn btn-success" title="Salvar">Salvar</button>
+                    <button type="reset" class="btn btn-danger ms-3" id="btnCancelar" title="Cancelar">Cancelar</button>
                 </div>
             </form>
         </section>
@@ -141,7 +141,7 @@
                 <div class="row">
                     
                     <div class="col-md-6">
-                        <label for="procedimentos" class="form-label">Procedimentos</label>
+                        <label for="procedimentos" class="form-label" title="Procedimentos">Procedimentos</label>
                         <select class="form-control" id="procedimentos">
                             <option value="" disabled selected>Selecione um procedimento...</option>
                             <option value="terapia">Terapia</option>
@@ -152,12 +152,12 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label for="crp" class="form-label">Registro Profissional (CRP)</label>
+                        <label for="crp" class="form-label" title="CRP">Registro Profissional (CRP)</label>
                         <input type="text" placeholder="00000000" class="form-control" id="crp">
                     </div>
 
                     <div class="col-md-6">
-                        <label for="categoria" class="form-label">Categoria Profissional</label>
+                        <label for="categoria" class="form-label" title="Categoria Profissional">Categoria Profissional</label>
                         <select class="form-control" id="categoria">
                             <option value="" disabled selected>Selecione uma categoria...</option>
                             <option value="psicologo">Psicólogo</option>
@@ -169,8 +169,8 @@
 
                 </div>
                 <div class="d-flex justify-content-center mt-5 mb-5">
-                    <button type="submit" class="btn btn-success">Salvar</button>
-                    <button type="reset" class="btn btn-danger ms-3" id="btnCancelar">Cancelar</button>
+                    <button type="submit" class="btn btn-success" title="Salvar">Salvar</button>
+                    <button type="reset" class="btn btn-danger ms-3" id="btnCancelar" title="Cancelar">Cancelar</button>
                 </div>
             </form>
         </section>
@@ -182,20 +182,25 @@
             <!-- Coluna para os inputs -->
             <div class="col-md-8 form-agendamento">
                 <div class="mb-3">
-                    <label for="nome" class="form-label">Dia</label>
-                    <input type="text" placeholder="Digite seu nome..." class="form-control" id="nome">
+                    <label for="dia" class="form-label" title="Dia">Dia</label>
+                    <input type="date" class="form-control" id="dia">
                 </div>
                 <div class="mb-3">
-                    <label for="cpf" class="form-label">Data de Entrada</label>
-                    <input type="text" placeholder="000.000.000-00" class="form-control" id="cpf">
+                    <label for="horaEntrada" class="form-label" title="Hora de Entrada">Hora de Entrada</label>
+                    <input type="time" class="form-control" id="horaEntrada">
                 </div>
                 <div class="mb-3">
-                    <label for="email" class="form-label">Data de Saída</label>
-                    <input type="email" placeholder="exemplo@gmail.com" class="form-control" id="email">
+                    <label for="horaSaida" class="form-label" title="Hora de Saída">Hora de Saída</label>
+                    <input type="time" class="form-control" id="horaSaida">
                 </div>
                 <div class="mb-3">
-                    <label for="dataNascimento" class="form-label">Dias Recorrentes</label>
-                    <input type="date" class="form-control" id="dataNascimento">
+                    <label for="diasRecorrentes" class="form-label" title="Dias Recorrentes">Dias Recorrentes</label>
+                    <select class="form-control" id="diasRecorrentes">
+                        <option value="segunda-sexta">Segunda a Sexta</option>
+                        <option value="segunda-sabado">Segunda a Sábado</option>
+                        <option value="segunda-domingo">Segunda a Domingo</option>
+                        <option value="personalizado">Personalizado</option>
+                    </select>
                 </div>
             </div>
 
@@ -204,9 +209,9 @@
                 <div id="calendario">
                     <div class="calendar">
                         <div class="calendar-header">
-                            <button id="prevMonth" class="btn btn-sm btn-light">❮</button>
+                            <button id="prevMonth" class="btn btn-sm btn-light" title="Mês anterior">❮</button>
                             <span id="currentMonthYear" class="fw-bold"></span>
-                            <button id="nextMonth" class="btn btn-sm btn-light">❯</button>
+                            <button id="nextMonth" class="btn btn-sm btn-light" title="Próximo Mês">❯</button>
                         </div>
                         <div class="calendar-body" id="calendarDays"></div>
                     </div>
@@ -215,9 +220,9 @@
         </div>
 
         <!-- Botões -->
-        <div class="d-flex justify-content-center mt-2 mb-3">
-            <button type="submit" class="btn btn-success">Salvar</button>
-            <button type="reset" class="btn btn-danger ms-3" id="btnCancelar">Cancelar</button>
+        <div class="d-flex justify-content-center mt-2 mb-5">
+            <button type="submit" class="btn btn-success" title="Salvar">Salvar</button>
+            <button type="reset" class="btn btn-danger ms-3" id="btnCancelar" title="Cancelar">Cancelar</button>
         </div>
     </div>
 </section>
