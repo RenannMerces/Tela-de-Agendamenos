@@ -167,6 +167,88 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    const editarBtn = document.getElementById("editarPerfil");
+    const salvarBtn = document.getElementById("btnSalvar");
+    const cancelarBtn = document.getElementById("btnCancelar");
+    const botoesAcoes = document.getElementById("botoesAcoes");
+
+    const camposEditaveis = [
+        document.getElementById("cpf"),
+        document.getElementById("email"),
+        document.getElementById("dataNascimento"),
+        document.getElementById("telefone"),
+        document.getElementById("telefone2")
+    ];
+
+    let dadosOriginais = {};
+
+    // Função para ativar/desativar edição
+    function toggleEdicao(ativar) {
+        camposEditaveis.forEach(campo => campo.disabled = !ativar);
+        botoesAcoes.style.display = ativar ? "flex" : "none"; 
+        editarBtn.style.display = ativar ? "none" : "block";
+
+        if (ativar) {
+            // Salvar valores antigos caso precise cancelar
+            dadosOriginais = camposEditaveis.reduce((acc, campo) => {
+                acc[campo.id] = campo.value;
+                return acc;
+            }, {});
+        }
+    }
+
+    // Evento do botão "Editar"
+    editarBtn.addEventListener("click", function () {
+        toggleEdicao(true);
+    });
+
+    // Evento do botão "Cancelar"
+    cancelarBtn.addEventListener("click", function () {
+        // Restaurar valores antigos
+        camposEditaveis.forEach(campo => {
+            campo.value = dadosOriginais[campo.id];
+        });
+        toggleEdicao(false);
+    });
+
+    // Evento do botão "Salvar"
+    salvarBtn.addEventListener("click", function (event) {
+        // Simulação de validação antes de salvar
+        let erros = [];
+
+        const cpf = document.getElementById("cpf").value.replace(/\D/g, "");
+        const email = document.getElementById("email").value;
+        const telefone1 = document.getElementById("telefone").value.replace(/\D/g, "");
+        const telefone2 = document.getElementById("telefone2").value.replace(/\D/g, "");
+
+        if (cpf.length !== 11) {
+            erros.push("CPF inválido!");
+        }
+
+        if (!/^[a-zA-Z0-9._%+-]+@(gmail\.com|hotmail\.com|[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/.test(email)) {
+            erros.push("E-mail inválido! Use Gmail, Hotmail ou um domínio válido.");
+        }
+
+        if (telefone1.length < 10) {
+            erros.push("Telefone 1 inválido!");
+        }
+
+        if (telefone2.length < 10) {
+            erros.push("Telefone 2 inválido!");
+        }
+
+        if (erros.length > 0) {
+            alert(erros.join("\n"));
+            event.preventDefault();
+        } else {
+            alert("Dados salvos com sucesso!");
+            toggleEdicao(false);
+        }
+    });
+});
+
+
 //& -------------------------------------------------------------- CALENDÁRIO ----------------------------------------------------------- //
 
 document.addEventListener("DOMContentLoaded", () => {
