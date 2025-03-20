@@ -93,7 +93,7 @@
         </div>
 
         <!-- Modal de Filtro -->
-        <div class="modal fade" id="filtroModal" tabindex="-1" aria-labelledby="filtroModalLabel" aria-hidden="true">
+        <section class="modal fade" id="filtroModal" tabindex="-1" aria-labelledby="filtroModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-filtro-container modal-dialog-centered">
                 <div class="modal-content modal-filtro-content">
                     <div class="modal-header modal-filtro-header">
@@ -105,12 +105,12 @@
                         <div class="mb-3 filtro-item">
                             <label for="tipoProcedimento" class="form-label">Tipo de Procedimento</label>
                             <select class="form-select" id="tipoProcedimento">
-                                <option value="">Selecione</option>
+                                <option value="" disabled selected>Selecione</option>
                                 <option value="exame">Exame</option>
                                 <option value="consulta">Consulta</option>
                                 <option value="cirurgia">Cirurgia</option>
                             </select>
-                        </div>
+                        </div>                        
 
                         <!-- Horário -->
                         <div class="mb-3 filtro-item">
@@ -122,7 +122,7 @@
                         <div class="mb-3 filtro-item">
                             <label for="status" class="form-label">Status</label>
                             <select class="form-select" id="status">
-                                <option value="">Selecione</option>
+                                <option value="" disabled selected>Selecione</option>
                                 <option value="confirmado">Confirmado</option>
                                 <option value="pendente">Pendente</option>
                                 <option value="cancelado">Cancelado</option>
@@ -135,7 +135,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
         <!-- Acordeão de Agendamentos -->
         <section class="accordion-container">
