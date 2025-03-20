@@ -455,18 +455,103 @@
         margin-top: 15px;
     }
 }
+/** ---------------------- AGENDAMENTOS ------------------- */
+
+#agendamentoForm .form-control {
+    width: 100%; /* Agora ocupa 100% da largura disponível */
+}
+
+.editar-agendamento {
+    background: #fff;
+    border-radius: 12px;
+    margin: 0 auto;
+    padding: 5px;
+}
+
+.editar-agendamento .form-label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 16px;
+}
+
+.editar-agendamento .form-control {
+    height: 48px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 12px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
+    color: #555;
+}
+
+.editar-agendamento .form-control:focus {
+    border-color: #D8A060;
+    box-shadow: 0 0 8px rgba(216, 160, 96, 0.5);
+    outline: none;
+    background-color: #fff;
+}
+
+.editar-agendamento .form-control:hover {
+    border-color: #D8A060;
+    background-color: #f4f4f4;
+}
+
+.editar-agendamento .form-control:active {
+    border-color: #D8A060;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(216, 160, 96, 0.6);
+}
+
+.editar-agendamento .form-control::placeholder {
+    color: #bbb;
+}
+.editar-agendamento button {
+    width: 150px;
+    height: 45px;
+    font-size: 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+.editar-agendamento .btn-success{
+    background-color: #0d5f71e6;
+    border-color: #0d5f71e6;
+}
+.editar-agendamento .btn-success:hover {
+    background-color: #09424fe6;
+    border-color: #09424fe6;
+}
+
+.editar-agendamento .btn-danger:hover {
+    background-color: #e04e4e;
+    border-color: #d13b3b;
+}
+
+#formAgendamento .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start; /* Alinha os elementos no topo */
+}
+
+#formAgendamento .col-md-8 {
+    flex: 2; /* Dá mais espaço ao formulário */
+    max-width: 11500px; /* Define um limite para evitar que fique muito largo */
+}
 
 /** ------------------ Calendário ------------------ */
 #calendario .calendar {
-    width: 300px; 
+    width: 300px;
     text-align: center;
+    justify-content: center;
 }
 
 #calendario .calendar-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px 10px; 
+    padding: 5px 10px;
     background: #0b4c5a;
     border-radius: 5px;
     color: #fff;
@@ -474,7 +559,7 @@
 
 #calendario .calendar-header button {
     width: 30px;
-    font-size: 14px; 
+    font-size: 14px;
     border-radius: 5px;
 }
 
@@ -489,11 +574,11 @@
 
 #calendario .calendar-body div {
     color: #0a192f;
-    padding: 8px; 
+    padding: 8px;
     text-align: center;
     cursor: pointer;
     border-radius: 5px;
-    font-size: 12px; 
+    font-size: 12px;
 }
 
 #calendario .calendar-body div:hover {
@@ -512,31 +597,39 @@
     color: white !important;
     padding: 5px;
     border-radius: 5px;
-    font-size: 12px; 
+    font-size: 12px;
 }
 
 #calendario .today {
-    background-color: #EDAD66 !important; 
+    background-color: #EDAD66 !important;
     color: white !important;
 }
 
-
-@media (max-width: 990px) {
+/* Responsividade */
+@media (max-width: 1100px) {
     #formAgendamento .row {
         flex-direction: column;
         align-items: center;
     }
-    #formAgendamento .col-md-7 {
-        width: 100%; 
+
+    #formAgendamento .col-md-8 {
+        width: 100%;
+    }
+
+    #formAgendamento .col-md-4 {
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
 
     #formAgendamento #calendario .calendar {
-        width: 300px; 
-        margin: 20px auto; 
+        width: 100%;
+        max-width: 300px;
+        margin: 20px auto;
     }
 
     #formAgendamento .d-flex {
-        justify-content: center !important; 
+        justify-content: center !important;
         width: 100%;
     }
 
