@@ -122,8 +122,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 { horario: "16:00", procedimento: "Exame", paciente: "Pedro Lima", status: "Pendente" }
             ],
             "Dra. Fernanda Costa": [
-                { horario: "17:00", procedimento: "Consulta", paciente: "Lucas Souza", status: "Confirmado" },
-                { horario: "17:30", procedimento: "Consulta", paciente: "Mariana Alves", status: "Pendente" },
+                { horario: "17:00", procedimento: "Consulta", paciente: "Lucas Souza", status: "Confirmado", payments_id: 10 },
+                { horario: "17:30", procedimento: "Consulta", paciente: "Mariana Alves", status: "Pendente",  payments_id: null },
                 { horario: "17:30", procedimento: "Consulta", paciente: "Mariana Alves", status: "Pendente" },
             ]
         },
@@ -471,3 +471,13 @@ const formatDateToDisplay = (dateString) => {
     const [year, month, day] = dateString.split('-');
     return `${day}/${month}/${year}`;
 };
+
+// * ---------------------------- Função de modal de pagamento ----------------------//
+// function payment($agendamentos.payments_id)
+
+document.addEventListener("click", function (event) {
+    if (event.target.closest(".fa-dollar-sign")) {
+      var modal = new bootstrap.Modal(document.getElementById("entradaModal"));
+      modal.show();
+    }
+  });
