@@ -60,24 +60,19 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 //! --------------------Side Direita Mobile ------------------
-
 document.addEventListener("DOMContentLoaded", function () {
     const aside = document.querySelector(".custom-aside");
     const toggleButton = document.getElementById("toggleAside");
 
     toggleButton.addEventListener("click", function () {
-        if (aside.style.display === "none" || aside.style.display === "") {
-            aside.style.display = "flex"; 
-        } else {
-            aside.style.display = "none"; 
-        }
+        aside.classList.toggle("show");  // Adiciona ou remove a classe 'show'
     });
 
     function checkScreenSize() {
         if (window.innerWidth <= 900) {
-            aside.style.display = "none"; 
+            aside.classList.remove("show"); // Certifique-se de esconder o aside quando a tela for pequena
         } else {
-            aside.style.display = "flex"; 
+            aside.classList.add("show"); // Mostra o aside em telas maiores
         }
     }
 
@@ -119,17 +114,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const agendamentos = {
         "08/03/2025": {
             "Dr. João da Silva": [
-                { horario: "16:00", procedimento: "Exame", paciente: "Pedro Lima", status: "Pendente" }
+                { horario: "16:00", procedimento: "Exame", paciente: "Pedro Lima", status: "Pendente", payments_id: 10 }
             ],
             "Dra. Fernanda Costa": [
                 { horario: "17:00", procedimento: "Consulta", paciente: "Lucas Souza", status: "Confirmado", payments_id: 10 },
                 { horario: "17:30", procedimento: "Consulta", paciente: "Mariana Alves", status: "Pendente",  payments_id: null },
-                { horario: "17:30", procedimento: "Consulta", paciente: "Mariana Alves", status: "Pendente" },
+                { horario: "17:30", procedimento: "Consulta", paciente: "Mariana Alves", status: "Pendente", payments_id: 10 },
             ]
         },
         "10/03/2025": {
             "Dra. Maria Oliveira": [
-                { horario: "14:00", procedimento: "Consulta", paciente: "Ana Souza", status: "Confirmado" }
+                { horario: "14:00", procedimento: "Consulta", paciente: "Ana Souza", status: "Confirmado", payments_id: 10 }
             ]
         }
     };
@@ -232,13 +227,13 @@ document.addEventListener("DOMContentLoaded", () => {
                                                 </td>
                                                 <td class="actions">
                                                     <button onclick="editAgendamento(event, ${agendaIndex}, '${date}')">
-                                                        <i class="fas fa-pencil-alt text-warning"></i>
+                                                        <i class="fas fa-pencil-alt text-warning" title="Editar"></i>
                                                     </button>
                                                     <button onclick="deleteAgendamento(event)">
-                                                        <i class="fas fa-trash text-danger"></i>
+                                                        <i class="fas fa-trash text-danger" title="Excluir"></i>
                                                     </button>
                                                     <button>
-                                                        <i class="fas fa-dollar-sign text-success"></i>
+                                                        <i class="fas fa-dollar-sign text-success" title="Pagamento"></i>
                                                     </button>
                                                 </td>
                                             </tr>
@@ -330,7 +325,7 @@ const editAgendamento = (event, index, date) => {
         { index: 1, type: 'date' },
         { index: 2, type: 'select', options: ["Consulta", "Exame", "Cirurgia", "Tratamento"] }, 
         { index: 3, type: 'text' }, 
-        { index: 4, type: 'select', options: ["Confirmado", "Pendente", "Cancelado"] } 
+        { index: 4, type: 'select', options: ["Confirmado", "Pendente"] } 
     ];
 
     inputConfig.forEach(config => {
@@ -421,9 +416,7 @@ const getStatusBadgeClass = (status) => {
         case "Confirmado":
             return "bg-success text-light"; 
         case "Pendente":
-            return "bg-warning text-dark"; 
-        case "Cancelado":
-            return "bg-danger text-light";  
+            return "bg-warning text-dark";   
         default:
             return "bg-secondary text-light"; 
     }
@@ -481,3 +474,20 @@ document.addEventListener("click", function (event) {
       modal.show();
     }
   });
+
+//  * ----------------------- TOAST --------------------------- //
+
+function initToast() {
+    const showToastBtn = document.getElementById('showToastBtn');
+    const paymentToastElement = document.getElementById('paymentToast');
+    
+    // Verifica se ambos os elementos existem
+    if (showToastBtn && paymentToastElement) {
+      const paymentToast = new bootstrap.Toast(paymentToastElement);
+
+      // Adiciona o evento de clique para mostrar o toast
+      showToastBtn.addEventListener('click', () => paymentToast.show());
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', initToast);

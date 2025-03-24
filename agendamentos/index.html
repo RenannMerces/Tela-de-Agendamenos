@@ -125,7 +125,6 @@
                                 <option value="" disabled selected>Selecione</option>
                                 <option value="confirmado">Confirmado</option>
                                 <option value="pendente">Pendente</option>
-                                <option value="cancelado">Cancelado</option>
                             </select>
                         </div>
                     </div>
@@ -151,7 +150,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title text-center w-100" id="entradaModalLabel">Entrada</h5>
+        <h5 class="modal-title text-center w-100" id="entradaModalLabel">Pagamento</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -172,11 +171,11 @@
           </div>
           <div class="mb-3">
             <label for="valor" class="form-label">Valor</label>
-            <input type="number" class="form-control" id="valor" required>
+            <input type="number" class="form-control" placeholder="Valor do pagamento..." id="valor" required>
           </div>
           <div class="mb-3">
             <label for="descricao" class="form-label">Descrição</label>
-            <input type="text" class="form-control" id="descricao">
+            <input type="text" class="form-control" placeholder="Descrição..." id="descricao" >
           </div>
           <div class="mb-3">
             <label for="tiposEntrada" class="form-label">Tipos de Entrada</label>
@@ -205,16 +204,25 @@
   </div>
 </div>
 
+<!-- Botão que dispara o toast -->
+<button id="showToastBtn" class="btn btn-info">Mostrar Toast</button>
+
+<!-- Toast de notificação -->
 <!-- Toast de notificação -->
 <div class="toast position-fixed bottom-0 end-0 m-3" id="paymentToast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
-  <div class="toast-body">
-    Já possui um pagamento, pretende editar?
-    <div class="mt-2 pt-2 border-top">
+    <div class="toast-body d-flex align-items-center">
+      <!-- Ícone -->
+      <span class="fw-bold flex-grow-1 text-center">Já possui um pagamento, pretende editar?</span>
+      <i class="bi bi-pencil-square me-2" style="font-size: 24px;"></i>
+      <!-- Mensagem -->
+    </div>
+    <div class="mt-2 pt-2 border-top text-center">
       <button type="button" class="btn btn-primary btn-sm" id="editarPagamentoBtn">Editar</button>
       <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="toast">Fechar</button>
     </div>
   </div>
-</div>
+  
+  
 
     <aside class="custom-aside">
         <div class="text-center">

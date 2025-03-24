@@ -585,7 +585,7 @@
 .custom-aside {
     position: fixed;
     top: 0;
-    right: 0;
+    right: -300px;  /* Começa fora da tela */
     height: 100%;
     width: 300px; 
     background-color: #0d5f71e6;
@@ -594,8 +594,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: width 0.3s;
-    z-index: 1040 !important; 
+    transition: right 0.3s ease-out; /* Transição para 'right' */
+    z-index: 1040 !important;
+}
+
+/* Apenas quando a classe .show for adicionada, ela aparece */
+.custom-aside.show {
+    right: 0;  /* Vai para a posição 0 (visível) */
 }
 
 .custom-aside p {
@@ -663,6 +668,7 @@
     color: white !important;
 }
 
+/* Botão que aparece no mobile para abrir o menu */
 .menu-button {
     position: fixed;
     bottom: 20px;
@@ -678,20 +684,20 @@
     z-index: 1050 !important;
 }
         
-@media (max-width: 900px){
+@media (max-width: 900px) {
     .menu-button {
-        display: block;
+        display: block;  /* Mostra o botão para abrir o menu */
     }
-}
 
-@media (max-width: 768px) {
-    .menu-button{
-        bottom: 70px;
-    }
     .custom-aside {
         width: 250px; 
     }
-        
+
+    /* Aplica a animação no mobile */
+    .custom-aside.show {
+        right: 0;  /* Com a classe .show, o aside vai para a tela */
+    }
+
     .calendar-body div {
         padding: 6px; 
         font-size: 10px; 
@@ -701,7 +707,13 @@
         font-size: 12px; 
     }
 }
-        
+
+@media (max-width: 768px) {
+    .menu-button{
+        bottom: 70px;
+    }
+}
+
 @media (max-width: 480px) {
     .custom-aside {
         width: 220px; 
@@ -714,10 +726,11 @@
         
     .calendar-header button {
         font-size: 10px; 
-        }
+    }
 }
 
-/** --------------------- Modal de pagamento nulo -------------------- */
+
+/** --------------------- Modal de pagamento -------------------- */
 .modal-dialog-centered {
     display: flex;
     align-items: center;
@@ -792,4 +805,119 @@
     padding: 10px 20px;
     font-size: 16px;
     border-radius: 6px;
+}
+/**--------------- toast --------------- */
+.toast {
+    border-radius: 12px;
+    background-color: #FFF;
+    color: #333;
+    padding: 8px 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+    width: auto; /* Largura automática */
+    max-width: 300px; /* Máxima largura do toast */
+}
+
+.toast .toast-body {
+    font-size: 16px;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px; /* Menor espaçamento entre ícone e texto */
+    padding: 0; 
+}
+
+.toast .btn {
+    font-size: 14px;
+}
+
+.toast .btn-primary {
+    background-color: #D8A060; 
+    border: none;
+    transition: 0.2s;
+}
+
+.toast .btn-primary:hover {
+    background-color: #a87c4a; 
+}
+
+.toast .btn-secondary {
+    background-color: #f1f1f1;
+    color: #333;
+    border: none;
+}
+
+.toast .btn-secondary:hover {
+    background-color: #e1e1e1;
+}
+
+.toast .fw-bold {
+    font-weight: 500 !important;
+    text-align: start !important; 
+    width: auto;
+}
+
+.toast i {
+    color: #0d5f71e6; 
+}
+
+.toast .mt-2 {
+    display: flex;
+    justify-content: center; 
+    gap: 10px; /* Ajustado para reduzir a largura total no botão */
+}
+
+/* Responsividade */
+@media (max-width: 770px) {
+    .toast {
+        max-width: 280px; /* Largura menor em telas médias */
+    }
+
+    .toast .btn {
+        font-size: 12px; /* Reduz o tamanho dos botões */
+    }
+
+    .toast .toast-body {
+        font-size: 14px;
+    }
+
+    .toast.position-fixed {
+        margin-bottom: 70px !important;
+        margin-right: 60px !important;
+    }
+}
+
+@media (max-width: 500px) {
+    .toast {
+        max-width: 240px; /* Largura ainda menor em telas pequenas */
+    }
+
+    .toast .btn {
+        font-size: 12px;
+    }
+
+    .toast .toast-body {
+        font-size: 14px;
+    }
+
+    .toast.position-fixed {
+        margin-bottom: 10px;
+        margin-right: 10px;
+    }
+}
+
+@media (max-width: 400px) {
+    .toast {
+        max-width: 200px; /* Largura bem reduzida para telas pequenas */
+    }
+
+    .toast .toast-body {
+        font-size: 12px;
+    }
+
+    .toast.position-fixed {
+        margin-bottom: 5px;
+        margin-right: 5px;
+    }
 }
