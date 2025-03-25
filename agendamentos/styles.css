@@ -808,18 +808,17 @@
 }
 /**--------------- toast --------------- */
 .toast {
-    border-radius: 12px;
+    border-radius: 5px;
     background-color: #FFF;
     color: #333;
     padding: 8px 16px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
     z-index: 1050;
     width: auto; /* Largura automática */
-    max-width: 300px; /* Máxima largura do toast */
+    max-width: 273px; /* Máxima largura do toast */
 }
 
 .toast .toast-body {
-    font-size: 16px;
+    font-size: 14px;
     font-family: 'Arial', sans-serif;
     display: flex;
     align-items: center;

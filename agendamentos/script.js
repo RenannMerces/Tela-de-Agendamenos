@@ -114,17 +114,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const agendamentos = {
         "08/03/2025": {
             "Dr. João da Silva": [
-                { horario: "16:00", procedimento: "Exame", paciente: "Pedro Lima", status: "Pendente", payments_id: 10 }
+                { horario: "16:00", duracao: "15 min", procedimento: "Exame", paciente: "Pedro Lima", status: "Pendente", payments_id: 10 }
             ],
             "Dra. Fernanda Costa": [
-                { horario: "17:00", procedimento: "Consulta", paciente: "Lucas Souza", status: "Confirmado", payments_id: 10 },
-                { horario: "17:30", procedimento: "Consulta", paciente: "Mariana Alves", status: "Pendente",  payments_id: null },
-                { horario: "17:30", procedimento: "Consulta", paciente: "Mariana Alves", status: "Pendente", payments_id: 10 },
+                { horario: "17:00", duracao: "30 min", procedimento: "Consulta", paciente: "Lucas Souza", status: "Confirmado", payments_id: 10 },
+                { horario: "17:30", duracao: "15 min", procedimento: "Consulta", paciente: "Mariana Alves", status: "Pendente", payments_id: null }
             ]
         },
         "10/03/2025": {
             "Dra. Maria Oliveira": [
-                { horario: "14:00", procedimento: "Consulta", paciente: "Ana Souza", status: "Confirmado", payments_id: 10 }
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Ana Souza", status: "Confirmado", payments_id: 10 }
             ]
         }
     };
@@ -182,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const updateAgendamentos = (date) => {
-        accordionContainer.innerHTML = ""; // Limpa o conteúdo anterior
+        accordionContainer.innerHTML = ""; 
     
         if (agendamentos[date]) {
             const accordion = document.createElement("div");
@@ -208,6 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                     <thead>
                                         <tr>
                                             <th>Hora</th>
+                                            <th>Duração</th>
                                             <th>Data</th>
                                             <th>Procedimento</th>
                                             <th>Paciente</th>
@@ -219,6 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                         ${agendas.map((agenda, agendaIndex) => `
                                             <tr>
                                                 <td>${agenda.horario}</td>
+                                                <td>${agenda.duracao}</td>
                                                 <td>${date}</td>
                                                 <td class="truncate2">${agenda.procedimento}</td>
                                                 <td class="truncate2">${agenda.paciente}</td>
@@ -316,23 +317,23 @@ const createSelectField = (options, selectedValue) => {
 
 // Função que permite editar os campos do agendamento
 const editAgendamento = (event, index, date) => {
-    const row = event.target.closest("tr"); // Obtém a linha do item da tabela
-    const cells = row.querySelectorAll("td"); // Obtém todas as células da linha
+    const row = event.target.closest("tr");
+    const cells = row.querySelectorAll("td");
 
-    // Mapeamento de campos para edição com tipos de input
+    const duracaoOptions = ["15 min", "30 min", "45 min", "60 min"];
+
     const inputConfig = [
         { index: 0, type: 'time' }, 
-        { index: 1, type: 'date' },
-        { index: 2, type: 'select', options: ["Consulta", "Exame", "Cirurgia", "Tratamento"] }, 
-        { index: 3, type: 'text' }, 
-        { index: 4, type: 'select', options: ["Confirmado", "Pendente"] } 
+        { index: 1, type: 'select', options: duracaoOptions }, 
+        { index: 2, type: 'date' },
+        { index: 3, type: 'select', options: ["Consulta", "Exame", "Cirurgia", "Tratamento"] }, 
+        { index: 4, type: 'text' }, 
+        { index: 5, type: 'select', options: ["Confirmado", "Pendente"] } 
     ];
 
     inputConfig.forEach(config => {
         const cell = cells[config.index];
         const currentText = cell.textContent.trim();
-
-        // Armazena o valor original antes de substituir
         cell.setAttribute("data-original", currentText);
 
         let input;
@@ -346,18 +347,16 @@ const editAgendamento = (event, index, date) => {
             input = createInputField(config.type, currentText);
         }
 
-        cell.innerHTML = "";  // Limpa o conteúdo da célula
-        cell.appendChild(input);  // Adiciona o campo de input
+        cell.innerHTML = "";  
+        cell.appendChild(input);  
     });
 
-    // Altera o botão para permitir a confirmação da edição
     const actionsCell = row.querySelector(".actions");
     actionsCell.innerHTML = `
         <button class="save-btn"><i class="fas fa-check text-success"></i></button>
         <button class="cancel-btn"><i class="fas fa-times text-danger"></i></button>
     `;
 
-    // Adiciona o comportamento de salvar e cancelar
     row.querySelector(".save-btn").addEventListener("click", () => saveEdits(row, index, date));
     row.querySelector(".cancel-btn").addEventListener("click", () => cancelEdits(row));
 };
@@ -371,27 +370,23 @@ const deleteAgendamento = (event) => {
     }
 };
 
-// Função para salvar as edições feitas
 const saveEdits = (row, index, date) => {
     const inputs = row.querySelectorAll("input, select");
 
-    // Obtém os valores editados
     const updatedValues = [
         inputs[0].value, 
-        formatDateToDisplay(inputs[1].value),  
-        inputs[2].value,  
+        inputs[1].value,  
+        formatDateToDisplay(inputs[2].value),  
         inputs[3].value,  
-        inputs[4].value   
+        inputs[4].value,  
+        inputs[5].value   
     ];
 
-    // Atualiza as células da tabela com os valores novos
     row.querySelectorAll("td").forEach((cell, i) => {
-        if (i < 5) { // Atualiza apenas as 5 primeiras células (evita a célula de ações)
-            if (i === 1) { 
-                // Se for a célula de data, garantir que ela exiba o formato correto
+        if (i < 6) { 
+            if (i === 2) { 
                 cell.textContent = updatedValues[i] || cell.getAttribute("data-original"); 
-            } else if (i === 4) { 
-                // Formata status como badge
+            } else if (i === 5) { 
                 cell.innerHTML = `<span class="badge ${getStatusBadgeClass(updatedValues[i])}">${updatedValues[i]}</span>`; 
             } else {
                 cell.textContent = updatedValues[i] || cell.getAttribute("data-original");
@@ -399,16 +394,13 @@ const saveEdits = (row, index, date) => {
         }
     });
 
-    // Restaura os botões de ação originais
     row.querySelector(".actions").innerHTML = `
         <button onclick="editAgendamento(event, ${index}, '${date}')"><i class="fas fa-pencil-alt text-warning"></i></button>
         <button class="delete-btn"><i class="fas fa-trash text-danger"></i></button>
         <button><i class="fas fa-dollar-sign text-success"></i></button>
     `;
 
-// Reatribui o evento ao botão de exclusão
-row.querySelector(".delete-btn").addEventListener("click", (event) => deleteAgendamento(event));
-
+    row.querySelector(".delete-btn").addEventListener("click", (event) => deleteAgendamento(event));
 };
     
 const getStatusBadgeClass = (status) => {
@@ -430,7 +422,7 @@ const cancelEdits = (row) => {
     cells.forEach((cell, index) => {
         const originalValue = cell.getAttribute("data-original");
         if (originalValue !== null) {
-            if (index === 4) { // Se for a célula do status
+            if (index === 5) { // Se for a célula do status
                 cell.innerHTML = `<span class="badge ${getStatusBadgeClass(originalValue)}">${originalValue}</span>`;
             } else {
                 cell.textContent = originalValue;
@@ -440,14 +432,21 @@ const cancelEdits = (row) => {
 
     // Restaura os botões de ação originais
     row.querySelector(".actions").innerHTML = `
-        <button onclick="editAgendamento(event, 0, '')"><i class="fas fa-pencil-alt text-warning"></i></button>
-        <button class="delete-btn"><i class="fas fa-trash text-danger"></i></button>
-        <button><i class="fas fa-dollar-sign text-success"></i></button>
+        <button onclick="editAgendamento(event, 0, '')">
+            <i class="fas fa-pencil-alt text-warning" title="Editar"></i>
+        </button>
+        <button class="delete-btn">
+            <i class="fas fa-trash text-danger" title="Excluir"></i>
+        </button>
+        <button>
+            <i class="fas fa-dollar-sign text-success" title="Pagamento"></i>
+        </button>
     `;
 
     // Reatribui o evento ao botão de exclusão
     row.querySelector(".delete-btn").addEventListener("click", (event) => deleteAgendamento(event));
 };
+
 
 
 const formatDateToInput = (dateString) => {
@@ -473,6 +472,23 @@ document.addEventListener("click", function (event) {
       var modal = new bootstrap.Modal(document.getElementById("entradaModal"));
       modal.show();
     }
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const valorInput = document.getElementById("valor");
+
+    valorInput.addEventListener("input", function (event) {
+      let value = event.target.value.replace(/\D/g, ""); // Remove tudo que não for número
+      value = value.padStart(3, "0"); // Garante que sempre tenha pelo menos "00" centavos
+
+      // Formata o valor como moeda brasileira
+      let formattedValue = (parseFloat(value) / 100).toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      });
+
+      event.target.value = formattedValue;
+    });
   });
 
 //  * ----------------------- TOAST --------------------------- //
