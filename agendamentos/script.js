@@ -328,7 +328,7 @@ const editAgendamento = (event, index, date) => {
         { index: 2, type: 'date' },
         { index: 3, type: 'select', options: ["Consulta", "Exame", "Cirurgia", "Tratamento"] }, 
         { index: 4, type: 'text' }, 
-        { index: 5, type: 'select', options: ["Confirmado", "Pendente", "Cancelado"] } 
+        { index: 5, type: 'select', options: ["Pendente", "Confirmado", "Realizado"] } 
     ];
 
     inputConfig.forEach(config => {
@@ -405,14 +405,14 @@ const saveEdits = (row, index, date) => {
     
 const getStatusBadgeClass = (status) => {
     switch(status) {
-        case "Confirmado":
-            return "bg-success text-light"; 
         case "Pendente":
             return "bg-warning text-dark";   
+        case "Confirmado":
+            return "bg-info text-white";
         default:
             return "bg-secondary text-light"; 
-        case "Cancelado":
-            return "bg-danger text-light";
+        case "Realizado":
+            return "bg-success text-light";
     }
 };  
 
