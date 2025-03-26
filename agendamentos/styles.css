@@ -920,3 +920,20 @@
         margin-right: 5px;
     }
 }
+
+.bg-warning{
+    background-color: #FFEB3B !important;
+    font-weight: 500 !important;
+}
+
+.bg-info{
+    background-color: #59c1d8 !important;
+    color: #000 !important;
+    font-weight: 400 !important;
+}
+
+.bg-success{
+    background-color: #5ae261 !important;
+    color: #000 !important;
+    font-weight: 500 !important;
+}

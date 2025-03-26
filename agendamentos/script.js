@@ -116,13 +116,91 @@ document.addEventListener("DOMContentLoaded", () => {
             "Dr. João da Silva": [
                 { horario: "16:00", duracao: "15 min", procedimento: "Exame", paciente: "Pedro Lima", status: "Pendente", payments_id: 10 }
             ],
-            "Dra. Fernanda Costa": [
-                { horario: "17:00", duracao: "30 min", procedimento: "Consulta", paciente: "Lucas Souza", status: "Confirmado", payments_id: 10 },
-                { horario: "17:30", duracao: "15 min", procedimento: "Consulta", paciente: "Mariana Alves", status: "Pendente", payments_id: null }
+            "Dr. Carlos": [
+                { horario: "16:00", duracao: "15 min", procedimento: "Exame", paciente: "Pedro Lima", status: "Pendente", payments_id: 10 }
+            ],
+            "Dr. Matheus": [
+                { horario: "16:00", duracao: "15 min", procedimento: "Exame", paciente: "Pedro Lima", status: "Pendente", payments_id: 10 }
+            ],
+            "Dr. José": [
+                { horario: "16:00", duracao: "15 min", procedimento: "Exame", paciente: "Pedro Lima", status: "Pendente", payments_id: 10 }
+            ],
+            "Dr. João da Silva": [
+                { horario: "16:00", duracao: "15 min", procedimento: "Exame", paciente: "Pedro Lima", status: "Pendente", payments_id: 10 }
             ]
         },
-        "10/03/2025": {
+        "26/03/2025": {
             "Dra. Maria Oliveira": [
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Ana Julia", status: "Pendente", payments_id: 10 },
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Paulo", status: "Realizado", payments_id: 10 },
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Marcos", status: "Pendente", payments_id: 10 },
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Junio", status: "Pendente", payments_id: 10 },
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Lima", status: "Confirmado", payments_id: 10 },
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Erick", status: "Realizado", payments_id: 10 },
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Jerfeson", status: "Realizado", payments_id: 10 },
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Ana Souza", status: "Realizado", payments_id: 10 },
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Ana Souza", status: "Pendente", payments_id: 10 }
+            ],
+            "Dra. Ana": [
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Ana Julia", status: "Pendente", payments_id: 10 },
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Paulo", status: "Realizado", payments_id: 10 },
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Marcos", status: "Pendente", payments_id: 10 },
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Junio", status: "Pendente", payments_id: 10 },
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Lima", status: "Confirmado", payments_id: 10 },
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Erick", status: "Realizado", payments_id: 10 },
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Jerfeson", status: "Realizado", payments_id: 10 },
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Ana Souza", status: "Realizado", payments_id: 10 },
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Ana Souza", status: "Pendente", payments_id: 10 }
+            ],
+            "Dr. Paulo": [
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Ana Julia", status: "Pendente", payments_id: 10 },
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Paulo", status: "Realizado", payments_id: 10 },
+                 { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Ana Souza", status: "Pendente", payments_id: 10 }
+            ],
+            "Dra. Julia": [
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Ana Julia", status: "Pendente", payments_id: 10 },
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Paulo", status: "Realizado", payments_id: 10 },
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Marcos", status: "Pendente", payments_id: 10 },
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Junio", status: "Pendente", payments_id: 10 },
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Lima", status: "Confirmado", payments_id: 10 },
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Erick", status: "Realizado", payments_id: 10 },
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Jerfeson", status: "Realizado", payments_id: 10 },
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Ana Souza", status: "Realizado", payments_id: 10 },
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Ana Souza", status: "Pendente", payments_id: 10 }
+            ],
+            "Dr. Marcos": [
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Ana Julia", status: "Pendente", payments_id: 10 },
+                 { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Ana Souza", status: "Pendente", payments_id: 10 }
+            ],
+            "Dr. Jose": [
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Ana Julia", status: "Pendente", payments_id: 10 },
+                 { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Ana Souza", status: "Pendente", payments_id: 10 }
+            ],
+            "Dr. Junio": [
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Ana Julia", status: "Pendente", payments_id: 10 },
+                 { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Ana Souza", status: "Pendente", payments_id: 10 }
+            ],
+            "Dr. Carlos": [
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Ana Julia", status: "Pendente", payments_id: 10 },
+                 { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Ana Souza", status: "Pendente", payments_id: 10 }
+            ],
+            "Dr. Matheus": [
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Ana Julia", status: "Pendente", payments_id: 10 },
+                 { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Ana Souza", status: "Pendente", payments_id: 10 }
+            ],
+        }, 
+        "27/03/2025": {
+            "Dr. Marcio": [
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Ana Souza", status: "Confirmado", payments_id: 10 }
+            ]
+        },
+        "25/03/2025": {
+            "Dr. Junio": [
+                { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Ana Souza", status: "Confirmado", payments_id: 10 }
+            ]
+        },
+        "22/03/2025": {
+            "Dra. Elizabeth": [
                 { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Ana Souza", status: "Confirmado", payments_id: 10 }
             ]
         }
@@ -410,7 +488,7 @@ const getStatusBadgeClass = (status) => {
         case "Confirmado":
             return "bg-info text-white";
         default:
-            return "bg-secondary text-light"; 
+            return "bg-secondary text-dark"; 
         case "Realizado":
             return "bg-success text-light";
     }
