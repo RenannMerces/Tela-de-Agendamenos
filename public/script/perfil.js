@@ -89,7 +89,7 @@ function mostrarSection(botaoAtivo, sectionAtiva) {
         mostrarSection(this, "formInfoProf");
     });
 
-    document.getElementById("btnAgendamento").addEventListener("click", function() {
+    document.getElementById("btnhorarios").addEventListener("click", function() {
         mostrarSection(this, "formAgendamento");
     });
 

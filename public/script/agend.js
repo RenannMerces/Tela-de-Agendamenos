@@ -398,7 +398,7 @@ const editAgendamento = (event, index, date) => {
     const row = event.target.closest("tr");
     const cells = row.querySelectorAll("td");
 
-    const duracaoOptions = ["15 min", "30 min", "45 min", "60 min"];
+    const duracaoOptions = ["30 min", "40 min", "45 min", "50 min", "60 min"];
 
     const inputConfig = [
         { index: 0, type: 'time' }, 
