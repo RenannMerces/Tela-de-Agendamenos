@@ -129,6 +129,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 { horario: "16:00", duracao: "15 min", procedimento: "Exame", paciente: "Pedro Lima", status: "Pendente", payments_id: 10 }
             ]
         },
+        "30/03/2025": {
+            "Dr. João da Silva": [
+                { horario: "16:00", duracao: "15 min", procedimento: "Exame", paciente: "Pedro Lima", status: "Pendente", payments_id: 10 }
+            ],
+            "Dr. Carlos": [
+                { horario: "16:00", duracao: "15 min", procedimento: "Exame", paciente: "Pedro Lima", status: "Pendente", payments_id: 10 }
+            ],
+            "Dr. Matheus": [
+                { horario: "16:00", duracao: "15 min", procedimento: "Exame", paciente: "Pedro Lima", status: "Pendente", payments_id: 10 }
+            ],
+            "Dr. José": [
+                { horario: "16:00", duracao: "15 min", procedimento: "Exame", paciente: "Pedro Lima", status: "Pendente", payments_id: 10 }
+            ],
+            "Dr. João da Silva": [
+                { horario: "16:00", duracao: "15 min", procedimento: "Exame", paciente: "Pedro Lima", status: "Pendente", payments_id: 10 }
+            ]
+        },
         "26/03/2025": {
             "Dra. Maria Oliveira": [
                 { horario: "14:00", duracao: "45 min", procedimento: "Consulta", paciente: "Ana Julia", status: "Pendente", payments_id: 10 },

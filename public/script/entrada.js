@@ -74,14 +74,29 @@ document.getElementById('aplicarFiltro').addEventListener('click', function() {
 });
 
 //& -------------------------------------------------------------- TABELA ----------------------------------------------------------- //
-// Função auxiliar para criar um campo de input
 const createInputField = (type, value) => {
     const input = document.createElement("input");
     input.type = type;
-    input.value = value;
     input.classList.add("form-control");
+
+    if (type === "datetime-local") {
+        input.value = value || new Date().toISOString().slice(0, 16);
+    } else if (type === "text" && value.includes("R$")) {
+        input.value = value.replace("R$ ", "").replace(",", ".");
+        input.addEventListener("input", formatCurrency);
+    } else {
+        input.value = value;
+    }
+
+    // Adiciona a restrição de caracteres no campo de descrição
+    if (type === "text") {
+        input.maxLength = 150;
+    }
+
     return input;
 };
+
+
 
 // Função auxiliar para criar um select com opções
 const createSelectField = (options, selectedValue) => {
@@ -98,6 +113,21 @@ const createSelectField = (options, selectedValue) => {
     return select;
 };
 
+
+// Formatação de moeda ao digitar (estilo Nubank)
+const formatCurrency = (event) => {
+    let value = event.target.value.replace(/\D/g, ""); // Remove tudo que não for número
+    value = (Number(value) / 100).toFixed(2).replace(".", ",");
+    event.target.value = "R$ " + value;
+};
+
+// Função para formatar a moeda para exibição
+const formatCurrencyForDisplay = (value) => {
+    value = value.replace(/\D/g, ""); // Remove tudo que não for número
+    value = (Number(value) / 100).toFixed(2).replace(".", ",");
+    return "R$ " + value;
+};
+
 // Função para editar os itens da tabela
 const editAgendamento = (event, index, date) => {
     const row = event.target.closest("tr");
@@ -107,19 +137,21 @@ const editAgendamento = (event, index, date) => {
     const entryTypes = ["Consulta", "Exame", "Cirurgia", "Tratamento"];
 
     const inputConfig = [
-        { index: 0, type: 'text' }, // ID
-        { index: 1, type: 'datetime-local' }, // Data/Hora
-        { index: 2, type: 'select', options: entryTypes }, // Tipo de Entrada
-        { index: 3, type: 'text' }, // Descrição
-        { index: 4, type: 'select', options: paymentMethods }, // Forma de Pagamento
-        { index: 5, type: 'number' }, // Valor
-        { index: 6, type: 'file' } // Anexo
+        { index: 0, type: 'datetime-local' }, 
+        { index: 1, type: 'select', options: entryTypes }, 
+        { index: 2, type: 'text' }, 
+        { index: 3, type: 'select', options: paymentMethods }, 
+        { index: 4, type: 'text' }, // Usando 'text' para poder formatar como moeda
+        { index: 5, type: 'file' } 
     ];
 
     inputConfig.forEach(config => {
         const cell = cells[config.index];
         const currentText = cell.textContent.trim();
-        cell.setAttribute("data-original", currentText);
+        
+        if (!cell.hasAttribute("data-original")) {
+            cell.setAttribute("data-original", currentText);
+        }
 
         let input;
         if (config.type === 'datetime-local') {
@@ -159,13 +191,14 @@ const deleteAgendamento = (event) => {
 const saveEdits = (row, index, date) => {
     const inputs = row.querySelectorAll("input, select");
 
+    // Reformatando o valor com R$ para o campo de moeda
     const updatedValues = [
         formatDateTimeToDisplay(inputs[0].value),  
         inputs[1].value,  
         inputs[2].value,  
         inputs[3].value,  
-        inputs[4].value,  
-        inputs[5].files.length > 0 ? "Arquivo anexado" : "Nenhum arquivo" 
+        formatCurrencyForDisplay(inputs[4].value),  // Chama a função de formatação de moeda
+        inputs[5].files.length > 0 ? inputs[5].files[0].name : row.querySelectorAll("td")[5].getAttribute("data-original")
     ];
 
     row.querySelectorAll("td").forEach((cell, i) => {
@@ -174,7 +207,7 @@ const saveEdits = (row, index, date) => {
         }
     });
 
-    row.querySelector(".actions").innerHTML = `
+    row.querySelector(".actions").innerHTML = `        
         <button onclick="editAgendamento(event, ${index}, '${date}')"><i class="fas fa-pencil-alt text-warning"></i></button>
         <button class="delete-btn"><i class="fas fa-trash text-danger"></i></button>
     `;
@@ -208,9 +241,11 @@ const cancelEdits = (row) => {
 // Função para formatar a data para o input
 const formatDateTimeToInput = (dateString) => {
     if (!dateString) return ""; 
-    const parts = dateString.split('/');
-    if (parts.length === 3) {
-        return `${parts[2]}-${parts[1]}-${parts[0]}T00:00`;
+    const parts = dateString.split(' '); 
+    if (parts.length === 2) {
+        const [datePart, timePart] = parts;
+        const [day, month, year] = datePart.split('/');
+        return `${year}-${month}-${day}T${timePart}`;
     }
     return dateString;
 };
@@ -218,9 +253,31 @@ const formatDateTimeToInput = (dateString) => {
 // Função para formatar a data para exibição
 const formatDateTimeToDisplay = (dateString) => {
     if (!dateString) return ""; 
-    const [year, month, dayTime] = dateString.split('-');
-    return `${dayTime.split('T')[0]}/${month}/${year}`;
+    const [datePart, timePart] = dateString.split('T'); 
+    const [year, month, day] = datePart.split('-');
+    return `${day}/${month}/${year} ${timePart}`;
 };
+
+//* ----------------------------- Active e Inactive tabela ---------------------//
+
+document.addEventListener("DOMContentLoaded", function () { 
+    // Inicializa a tabela de entrada como visível
+    toggleTable("tabelaEntrada");
+
+    // Função para alternar entre as tabelas
+    function toggleTable(tableId) {
+        const btns = document.querySelectorAll(".tabela_ent_sai"); // Seleciona ambos os botões
+        btns.forEach(btn => btn.classList.remove("active")); // Remove a classe "active" de ambos os botões
+
+        // Alterna a visibilidade das tabelas
+        document.getElementById('tabelaEntrada').style.display = tableId === 'tabelaEntrada' ? 'block' : 'none';
+        document.getElementById('tabelaSaida').style.display = tableId === 'tabelaSaida' ? 'block' : 'none';
+
+        // Adiciona a classe "active" ao botão clicado
+        const activeBtn = Array.from(btns).find(btn => btn.title.toLowerCase() === tableId.replace('tabela', '').toLowerCase());
+        activeBtn.classList.add("active");
+    }
+});
 
 
 // * ---------------------------- Função de modal de pagamento ----------------------//
@@ -249,20 +306,3 @@ document.addEventListener("click", function (event) {
       event.target.value = formattedValue;
     });
   });
-
-//  * ----------------------- TOAST --------------------------- //
-
-function initToast() {
-    const showToastBtn = document.getElementById('showToastBtn');
-    const paymentToastElement = document.getElementById('paymentToast');
-    
-    // Verifica se ambos os elementos existem
-    if (showToastBtn && paymentToastElement) {
-      const paymentToast = new bootstrap.Toast(paymentToastElement);
-
-      // Adiciona o evento de clique para mostrar o toast
-      showToastBtn.addEventListener('click', () => paymentToast.show());
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', initToast);

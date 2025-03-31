@@ -9,6 +9,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="../../public/styles/tabela.css">
     <link rel="shortcut icon" href="../../public/src/icon.png" type="image/x-icon">
+    <script>
+        function toggleTable(tableId) {
+            document.getElementById('tabelaEntrada').style.display = tableId === 'tabelaEntrada' ? 'block' : 'none';
+            document.getElementById('tabelaSaida').style.display = tableId === 'tabelaSaida' ? 'block' : 'none';
+        }
+    </script>
 </head>
 <body>
 
@@ -87,12 +93,20 @@
         </div>
 
         <!-- Botões -->
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <button class="btn btn-warning" title="Novo agendamento"><i class="bi bi-plus-lg"></i> Novo</button>
-            <button class="btn btn-light" id="btnFiltro" title="Filtro" data-bs-toggle="modal" data-bs-target="#filtroModal"><i class="bi bi-funnel"></i> Filtro</button>
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 botao-container">
+            <div class="botao-group">
+                <button class="btn btn-primary tabela_ent_sai" title="Entrada de Valores" onclick="toggleTable('tabelaEntrada')">Entrada</button>
+                <button class="btn btn-secondary tabela_ent_sai" title="Saída de Valores" onclick="toggleTable('tabelaSaida')">Saída</button>
+            </div>
+            <div class="botao-group">
+                <button class="btn btn-warning" title="Novo agendamento"><i class="bi bi-plus-lg"></i> Novo</button>
+                <button class="btn btn-light" id="btnFiltro" title="Filtro" data-bs-toggle="modal" data-bs-target="#filtroModal">
+                    <i class="bi bi-funnel"></i> Filtro
+                </button>
+            </div>
         </div>
 
-        <!-- Modal de Filtro -->
+    <!-- Modal de Filtro -->
         <section class="modal fade" id="filtroModal" tabindex="-1" aria-labelledby="filtroModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-filtro-container modal-dialog-centered">
                 <div class="modal-content modal-filtro-content">
@@ -136,44 +150,84 @@
             </div>
         </section>
 
-        <section class="accordion-container">
-          <div class="table-container">
-              <table class="table custom-table">
-                  <thead>
-                      <tr>
-                          <th>Data/Hora</th>
-                          <th>Tipo de Entrada</th>
-                          <th>Descrição</th>
-                          <th>F. de Pagamento</th>
-                          <th>Valor</th>
-                          <th>Anexo</th>
-                          <th>Ações</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <tr>
-                          <td>08/03/2025 16:00</td>
-                          <td class="truncate2">Exame</td>
-                          <td class="truncate2">Pedro Lima</td>
-                          <td class="truncate2">Pendente</td>
-                          <td class="truncate2">200,00</td>
-                          <td>Nenhum arquivo</td>
-                          <td class="actions">
-                              <button onclick="editAgendamento(event, 1, '08/03/2025 16:00')">
-                                  <i class="fas fa-pencil-alt text-warning" title="Editar"></i>
-                              </button>
-                              <button onclick="deleteAgendamento(event)">
-                                  <i class="fas fa-trash text-danger" title="Excluir"></i>
-                              </button>
-                          </td>
-                      </tr>
-                  </tbody>
-              </table>
-          </div>
-      </section>
-      
-
-
+        <!--  TABELAS  -->
+        <section class="accordion-container" id="tabelaEntrada">
+            <div class="table-container">
+                <table class="table custom-table">
+                    <thead>
+                        <tr>
+                            <th colspan="7" class="text-center bg-primary text-white">Entrada de Valores</th>
+                        </tr>
+                        <tr>
+                            <th>Data/Hora</th>
+                            <th>Tipo de Entrada</th>
+                            <th>Descrição</th>
+                            <th>F. de Pagamento</th>
+                            <th>Valor</th>
+                            <th>Anexo</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>08/03/2025 16:00</td>
+                            <td class="truncate2">Exame</td>
+                            <td class="truncate2">Pedro Lima</td>
+                            <td class="truncate2">Pendente</td>
+                            <td class="truncate2">R$ 200,00</td>
+                            <td class="truncate2">Nenhum arquivo</td>
+                            <td class="actions">
+                                <button onclick="editAgendamento(event, 1, '08/03/2025 16:00')">
+                                    <i class="fas fa-pencil-alt text-warning" title="Editar"></i>
+                                </button>
+                                <button onclick="deleteAgendamento(event)">
+                                    <i class="fas fa-trash text-danger" title="Excluir"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <section class="accordion-container" id="tabelaSaida" style="display: none;">
+            <div class="table-container">
+                <table class="table custom-table">
+                    <thead>
+                        <tr>
+                            <th colspan="7" class="text-center bg-danger text-white">Saída de Valores</th>
+                        </tr>
+                        <tr>
+                            <th>Data/Hora</th>
+                            <th>Tipo de Entrada</th>
+                            <th>Descrição</th>
+                            <th>F. de Pagamento</th>
+                            <th>Valor</th>
+                            <th>Anexo</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>08/03/2025 16:00</td>
+                            <td class="truncate2">Exame</td>
+                            <td class="truncate2">Pedro Lima</td>
+                            <td class="truncate2">Pendente</td>
+                            <td class="truncate2">R$ 200,00</td>
+                            <td class="truncate2">Nenhum arquivo</td>
+                            <td class="actions">
+                                <button onclick="editAgendamento(event, 1, '08/03/2025 16:00')">
+                                    <i class="fas fa-pencil-alt text-warning" title="Editar"></i>
+                                </button>
+                                <button onclick="deleteAgendamento(event)">
+                                    <i class="fas fa-trash text-danger" title="Excluir"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </section>
     
 </section>
@@ -253,6 +307,6 @@
   </div>
   
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="../../public/script/tabelas.js"></script>
+    <script src="../../public/script/entrada.js"></script>
 </body>
 </html>

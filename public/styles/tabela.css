@@ -406,66 +406,6 @@
     overflow-y: auto; 
 }
 
-.custom-accordion .accordion-button {
-    background-color: #f4f4f4 !important;
-    color: black;
-    border: none;
-    font-size: 18px;
-    transition: background-color 0.3s ease;
-}
-
-.custom-accordion .accordion-button:not(.collapsed) {
-    background-color: #0d5f71e6 !important;
-    color: #f8f9fa; 
-}
-
-.custom-accordion .accordion-button:focus {
-    background-color: #0d5f71e6 !important;
-    color: #f8f9fa;
-}
-
-.custom-accordion .accordion-item {
-    background-color: #0d5f71e6 !important;
-    border: none;
-    margin-bottom: 10px;
-    overflow: hidden;
-}
-
-.custom-accordion .accordion-body {
-    background-color: #ffffff;
-    color: white;
-    padding: 20px;
-    max-height: 260px; 
-}
-
-.accordion-button:not(.collapsed)::after {
-    color: white !important; 
-}
-
-.custom-accordion .accordion-button.collapsed {
-    background-color: #f4f4f4 !important;
-    color: black !important; 
-}
-
-.accordion-body{
-    background-color: #ffffff;
-    padding: 0px !important;
-    padding-top: 15px !important;
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-    display: block !important;
-    white-space: nowrap !important; 
-    overflow-x: auto !important;
-}
-
-.accordion-button:focus{
-    box-shadow: none;
-}
-
-.custom-accordion .accordion-button:hover{
-    background-color: #006078 !important;
-    color: #fff !important;
-}
 /** ------------------- Tabela -------------------- */
 
 .table-container {
@@ -572,3 +512,45 @@
     background-color: rgba(0, 123, 255, 0.2);
 }
 
+/*& -------------------------------- TABELA ENTRADA/SÁIDA -----------------------------*/
+
+.tabela_ent_sai{
+    background-color: #fff;
+    border: #0d5f71e6 solid 2px; 
+    color: #000;
+    white-space: nowrap; 
+    table-layout: fixed !important;
+    border-collapse: collapse;
+    transition: 0.2s;
+}
+
+.tabela_ent_sai:hover{
+    background-color: #0d5f71e6;
+    border: #0d5f71e6 solid 2px; 
+}
+
+.tabela_ent_sai:active{
+    background-color: #0b4b5be6 !important;
+    border: #0d5f71e6 solid 2px; 
+}
+
+@media (max-width: 395px) {
+    .botao-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 8px !important; 
+    }
+
+    .botao-group {
+        width: 100%;
+        gap: 2px !important;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .botao-group button {
+        flex: 1; 
+        max-width: 50%; 
+    }
+}
