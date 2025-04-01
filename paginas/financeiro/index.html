@@ -49,114 +49,189 @@
         </nav>
     </aside>
 
-    <!-- Modal de Transação -->
-    <dialog id="transaction-modal" class="transaction-modal">
-        <div class="modal-body">
-            <a href="../../paginas/financeiro/index.html" class="modal-item" aria-label="Tabela de Entrada"><i class="bi bi-arrow-down-circle"></i> Entrada</a>
-            <a href="saida.html" class="modal-item" aria-label="Tabela de Saída"><i class="bi bi-arrow-up-circle"></i> Saída</a>
-        </div>
-    </dialog>
+        <!-- Modal de Transação -->
+        <dialog id="transaction-modal" class="transaction-modal">
+            <div class="modal-body">
+                <a href="../../paginas/financeiro/index.html" class="modal-item" aria-label="Tabela de Entrada"><i class="bi bi-arrow-down-circle"></i> Entrada</a>
+                <a href="saida.html" class="modal-item" aria-label="Tabela de Saída"><i class="bi bi-arrow-up-circle"></i> Saída</a>
+            </div>
+        </dialog>
 
-    <!-- Modal de Cadastros -->
-    <dialog id="cadastro-modal" class="cadastro-modal">
-        <div class="modal-body">
-            <a href="paciente.html" class="modal-item" aria-label="Cadastro de Pacientes"><i class="bi bi-person"></i> Pacientes</a>
-            <a href="colaborador.html" class="modal-item" aria-label="Cadastro de Colaboradores"><i class="bi bi-briefcase"></i> Colaborador</a>
-            <a href="profissional.html" class="modal-item" aria-label="Cadastro de Profissionais"><i class="bi bi-clipboard-heart"></i> Profissional</a>
-        </div>
-    </dialog>
+        <!-- Modal de Cadastros -->
+        <dialog id="cadastro-modal" class="cadastro-modal">
+            <div class="modal-body">
+                <a href="paciente.html" class="modal-item" aria-label="Cadastro de Pacientes"><i class="bi bi-person"></i> Pacientes</a>
+                <a href="colaborador.html" class="modal-item" aria-label="Cadastro de Colaboradores"><i class="bi bi-briefcase"></i> Colaborador</a>
+                <a href="profissional.html" class="modal-item" aria-label="Cadastro de Profissionais"><i class="bi bi-clipboard-heart"></i> Profissional</a>
+            </div>
+        </dialog>
 
-    
-    <!-- Menu inferior (mobile) -->
-    <section class="bottom-menu">
-      <a href="../../paginas/perfil/index.html"><i class="bi bi-person-circle" title="Perfil"></i></a>
-      <a href="../../paginas/agendamentos/index.html"><i class="bi bi-house-door" title="Consultas"></i></a>
-      <a href="#"><i class="bi bi-person-plus" title="Cadastros"></i></a>
-      <a href="#"><i class="bi bi-file-earmark-text" title="Relatórios"></i></a>
-      <a href="#" class="transaction-btn"><i class="bi bi-currency-exchange" title="Transação"></i></a>
-          <div class="transaction-mini-modal">
-              <a href="../../paginas/financeiro/index.html" class="modal-item"><i class="bi bi-arrow-up-circle" title="Entrada de Valores"></i> Entrada</a>
-              <a href="#" class="modal-item"><i class="bi bi-arrow-down-circle" title="Saída de Valores"></i> Saída</a>
-          </div>
-  </section>
+        <!-- Menu inferior (mobile) -->
+        <section class="bottom-menu">
+        <a href="../../paginas/perfil/index.html"><i class="bi bi-person-circle" title="Perfil"></i></a>
+        <a href="../../paginas/agendamentos/index.html"><i class="bi bi-house-door" title="Consultas"></i></a>
+        <a href="#"><i class="bi bi-person-plus" title="Cadastros"></i></a>
+        <a href="#"><i class="bi bi-file-earmark-text" title="Relatórios"></i></a>
+        <a href="#" class="transaction-btn"><i class="bi bi-currency-exchange" title="Transação"></i></a>
+            <div class="transaction-mini-modal">
+                <a href="../../paginas/financeiro/index.html" class="modal-item"><i class="bi bi-arrow-up-circle" title="Entrada de Valores"></i> Entrada</a>
+                <a href="#" class="modal-item"><i class="bi bi-arrow-down-circle" title="Saída de Valores"></i> Saída</a>
+            </div>
+        </section>
  
 <!-- Conteúdo principal -->
 <section class="container-fluid main-container">
 
     <!-- Seção de Agendamentos -->
     <section class="content-section">
-        <h2 class="text-center mb-3 titulo-pag" title="Agendamentos">Entrada de Valores</h2>
-
-        <!-- Barra de pesquisa -->
-        <div class="search-container mb-3">
-            <input type="text" class="form-control search-input" placeholder="Buscar..." title="Campo de pesquisa">
-        </div>
+        <h2 class="text-center mb-5 titulo-pag" title="Agendamentos">Tabelas Financeiras</h2>
 
         <!-- Botões -->
         <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 botao-container">
             <div class="botao-group">
-                <button class="btn btn-primary tabela_ent_sai" title="Entrada de Valores" onclick="toggleTable('tabelaEntrada')">Entrada</button>
+                <button class="btn btn-primary tabela_ent_sai active" title="Entrada de Valores" onclick="toggleTable('tabelaEntrada')">Entrada</button>
                 <button class="btn btn-secondary tabela_ent_sai" title="Saída de Valores" onclick="toggleTable('tabelaSaida')">Saída</button>
             </div>
             <div class="botao-group">
-                <button class="btn btn-warning" title="Novo agendamento"><i class="bi bi-plus-lg"></i> Novo</button>
+                  <button class="btn btn-warning novo_ent_sai" title="Novo" data-bs-toggle="modal" data-bs-target="#financeiroModal" ><i class="bi bi-plus-lg"></i>
+                    Novo</button>
                 <button class="btn btn-light" id="btnFiltro" title="Filtro" data-bs-toggle="modal" data-bs-target="#filtroModal">
                     <i class="bi bi-funnel"></i> Filtro
                 </button>
             </div>
         </div>
 
-    <!-- Modal de Filtro -->
-        <section class="modal fade" id="filtroModal" tabindex="-1" aria-labelledby="filtroModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-filtro-container modal-dialog-centered">
-                <div class="modal-content modal-filtro-content">
-                    <div class="modal-header modal-filtro-header">
-                        <h5 class="modal-title" id="filtroModalLabel">Filtrar Agendamentos</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                    </div>
-                    <div class="modal-body modal-filtro-body">
-                        <!-- Tipo de Procedimento -->
-                        <div class="mb-3 filtro-item">
-                            <label for="tipoProcedimento" class="form-label">Tipo de Procedimento</label>
-                            <select class="form-select" id="tipoProcedimento">
-                                <option value="" disabled selected>Selecione</option>
-                                <option value="exame">Exame</option>
-                                <option value="consulta">Consulta</option>
-                                <option value="cirurgia">Cirurgia</option>
-                            </select>
-                        </div>                        
-
-                        <!-- Horário -->
-                        <div class="mb-3 filtro-item">
-                            <label for="horario" class="form-label">Horário</label>
-                            <input type="time" class="form-control" id="horario">
+        <!-- Modal de Entrada/Saída -->
+            <section class="modal fade pagamentos-nulos" id="financeiroModal" tabindex="-1" aria-labelledby="entradaModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-center w-100" id="entradaModalLabel">Entrada / Saída</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-
-                        <!-- Status -->
-                        <div class="mb-3 filtro-item">
-                            <label for="status" class="form-label">Status</label>
-                            <select class="form-select" id="status" onchange="updateEntryTypeInput(this.value)">
-                                <option value="" disabled selected>Selecione</option>
-                                <option value="confirmado">Confirmado</option>
-                                <option value="pendente">Pendente</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer modal-filtro-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" id="aplicarFiltro">Aplicar Filtro</button>
+                            <div class="modal-body">
+                                <form id="entradaForm">
+                                    <div class="mb-3">
+                                        <label for="dataHora" class="form-label">Data/hora</label>
+                                        <input type="datetime-local" class="form-control" id="dataHora" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="tiposEntrada" class="form-label">Tipos de Entrada</label>
+                                        <select class="form-select" id="tiposEntrada">
+                                            <option value="" disabled selected>Selecione</option>
+                                            <option value="salario">Salário</option>
+                                            <option value="freelance">Freelance</option>
+                                            <option value="investimentos">Investimentos</option>
+                                            <option value="outros">Outros</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="descricao" class="form-label">Descrição</label>
+                                        <input type="text" class="form-control" placeholder="Descrição..." id="descricao" >
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="formaPagamento" class="form-label">Forma de pagamento</label>
+                                        <select class="form-select" id="formaPagamento" required>
+                                            <option value="" disabled selected>Selecione</option>
+                                            <option value="dinheiro">Dinheiro</option>
+                                            <option value="cartao">Cartão</option>
+                                            <option value="pix">PIX</option>
+                                            <option value="boleto">Boleto</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="valor" class="form-label">Valor</label>
+                                        <input type="text" class="form-control" placeholder="Valor do pagamento..." id="valorModal" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="valor" class="form-label">Desconto</label>
+                                        <input type="text" class="form-control" placeholder="Valor do desconto..." id="descontoModal">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="anexo" class="form-label">Anexo</label>
+                                        <input type="file" class="form-control" id="anexo">
+                                    </div>
+                                    <div>
+                                        <input type="number" hidden class="form-control" id="payment_id" name="proposta-id" value="">
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-primary">Salvar</button>
+                                    </div>
+                                </form>
+                            </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!--  TABELAS  -->
+<!-- Modal de Filtro -->
+<section class="modal fade" id="filtroModal" tabindex="-1" aria-labelledby="filtroModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-filtro-container modal-dialog-centered">
+        <div class="modal-content modal-filtro-content">
+            <div class="modal-header modal-filtro-header">
+                <h4 class="modal-title w-100 text-center mt-2" id="filtroModalLabel" style="font-weight: bold;">FILTRO</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body modal-filtro-body">
+                <form action="seu-endereco-de-envio" method="POST">
+        
+                    <div class="mb-3 filtro-item">
+                        <label for="dataHora" class="form-label">Data/Hora</label>
+                        <input type="datetime-local" class="form-control" id="dataHora" name="dataHora" required>
+                    </div>
+
+                    <!-- Tipo de Entrada -->
+                    <div class="mb-3 filtro-item">
+                        <label for="tipoEntrada" class="form-label">Tipo de Entrada</label>
+                        <select class="form-select" id="tipoEntrada" name="tipoEntrada" required>
+                            <option value="" disabled selected>Selecione</option>
+                            <option value="entrada1">Entrada 1</option>
+                            <option value="entrada2">Entrada 2</option>
+                            <option value="entrada3">Entrada 3</option>
+                        </select>
+                    </div>
+
+                    <!-- Valor Mínimo e Máximo -->
+                    <div class="mb-3 filtro-item">
+                        <label for="valorMinMax" class="form-label">Valor Mínimo e Máximo</label>
+                        <div class="d-flex">
+                            <input type="text" class="form-control me-2" id="valorMin" name="valorMin" placeholder="Valor Mínimo" required>
+                            <input type="text" class="form-control" id="valorMax" name="valorMax" placeholder="Valor Máximo" required>
+                        </div>
+                    </div>
+
+                    <!-- Forma de Pagamento -->
+                    <div class="mb-3 filtro-item">
+                        <label for="formaPagamento" class="form-label">Forma de Pagamento</label>
+                        <select class="form-select" id="formaPagamento" name="formaPagamento">
+                            <option value="" disabled selected>Selecione</option>
+                            <option value="credito">Crédito</option>
+                            <option value="debito">Débito</option>
+                            <option value="pix">PIX</option>
+                            <option value="dinheiro">Dinheiro</option>
+                        </select>
+                    </div>
+
+                    <!-- Botões -->
+                    <div class="modal-footer modal-filtro-footer w-100">
+                        <button type="button" class="btn btn-secondary me-auto" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary ms-auto">Aplicar Filtro</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+        <!-- Tabela de Entrada -->
         <section class="accordion-container" id="tabelaEntrada">
             <div class="table-container">
                 <table class="table custom-table">
                     <thead>
                         <tr>
-                            <th colspan="7" class="text-center bg-primary text-white">Entrada de Valores</th>
+                            <th colspan="8" class="text-center bg-primary text-white" style="font-weight: 600 !important; font-size: 25px;">Entrada de Valores</th>
                         </tr>
                         <tr>
                             <th>Data/Hora</th>
@@ -164,6 +239,7 @@
                             <th>Descrição</th>
                             <th>F. de Pagamento</th>
                             <th>Valor</th>
+                            <th>Desconto</th>
                             <th>Anexo</th>
                             <th>Ações</th>
                         </tr>
@@ -175,6 +251,7 @@
                             <td class="truncate2">Pedro Lima</td>
                             <td class="truncate2">Pendente</td>
                             <td class="truncate2">R$ 200,00</td>
+                            <td class="truncate2">R$ 20,00</td>
                             <td class="truncate2">Nenhum arquivo</td>
                             <td class="actions">
                                 <button onclick="editAgendamento(event, 1, '08/03/2025 16:00')">
@@ -189,13 +266,14 @@
                 </table>
             </div>
         </section>
-        
+
+        <!-- Tabela de Saída -->
         <section class="accordion-container" id="tabelaSaida" style="display: none;">
             <div class="table-container">
                 <table class="table custom-table">
                     <thead>
                         <tr>
-                            <th colspan="7" class="text-center bg-danger text-white">Saída de Valores</th>
+                            <th colspan="8" class="text-center bg-primary text-white" style="font-weight: 600 !important; font-size: 25px;">Sáida de Valores</th>
                         </tr>
                         <tr>
                             <th>Data/Hora</th>
@@ -203,6 +281,7 @@
                             <th>Descrição</th>
                             <th>F. de Pagamento</th>
                             <th>Valor</th>
+                            <th>Desconto</th>
                             <th>Anexo</th>
                             <th>Ações</th>
                         </tr>
@@ -214,6 +293,7 @@
                             <td class="truncate2">Pedro Lima</td>
                             <td class="truncate2">Pendente</td>
                             <td class="truncate2">R$ 200,00</td>
+                            <td class="truncate2">R$ 20,00</td>
                             <td class="truncate2">Nenhum arquivo</td>
                             <td class="actions">
                                 <button onclick="editAgendamento(event, 1, '08/03/2025 16:00')">
@@ -227,84 +307,9 @@
                     </tbody>
                 </table>
             </div>
-        </section>
-    </section>
-    
+        </section> 
+
 </section>
-
-<!-- Modal de pagamento -->
-<div class="modal fade pagamentos-nulos" id="entradaModal" tabindex="-1" aria-labelledby="entradaModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title text-center w-100" id="entradaModalLabel">Pagamento</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="entradaForm">
-          <div class="mb-3">
-            <label for="dataHora" class="form-label">Data/hora</label>
-            <input type="datetime-local" class="form-control" id="dataHora" required>
-          </div>
-          <div class="mb-3">
-            <label for="formaPagamento" class="form-label">Forma de pagamento</label>
-            <select class="form-select" id="formaPagamento" required>
-              <option value="" disabled selected>Selecione</option>
-              <option value="dinheiro">Dinheiro</option>
-              <option value="cartao">Cartão</option>
-              <option value="pix">PIX</option>
-              <option value="boleto">Boleto</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="valor" class="form-label">Valor</label>
-            <input type="text" class="form-control" placeholder="Valor do pagamento..." id="valor" required>
-          </div>
-          <div class="mb-3">
-            <label for="descricao" class="form-label">Descrição</label>
-            <input type="text" class="form-control" placeholder="Descrição..." id="descricao" >
-          </div>
-          <div class="mb-3">
-            <label for="tiposEntrada" class="form-label">Tipos de Entrada</label>
-            <select class="form-select" id="tiposEntrada">
-              <option value="" disabled selected>Selecione</option>
-              <option value="salario">Salário</option>
-              <option value="freelance">Freelance</option>
-              <option value="investimentos">Investimentos</option>
-              <option value="outros">Outros</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="anexo" class="form-label">Anexo</label>
-            <input type="file" class="form-control" id="anexo">
-          </div>
-          <div>
-            <input type="number" hidden class="form-control" id="payment_id" name="proposta-id" value="">
-          </div>
-          <div class="d-flex justify-content-between">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-primary">Salvar</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Botão que dispara o toast -->
-<!-- <button id="showToastBtn" class="btn btn-info">Mostrar Toast</button> -->
-
-<!-- Toast de notificação -->
-<div class="toast position-fixed bottom-0 end-0 m-3" id="paymentToast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
-    <div class="toast-body d-flex align-items-center">
-      <span class="fw-bold flex-grow-1 text-center">Já possui um pagamento, pretende editar?</span>
-      <i class="bi bi-pencil-square me-2" style="font-size: 24px;"></i>
-    </div>
-    <div class="mt-2 pt-2 border-top text-center">
-      <button type="button" class="btn btn-primary btn-sm" id="editarPagamentoBtn">Editar</button>
-      <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="toast">Fechar</button>
-    </div>
-  </div>
   
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="../../public/script/entrada.js"></script>

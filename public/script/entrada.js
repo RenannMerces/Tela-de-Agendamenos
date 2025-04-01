@@ -59,20 +59,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-// * ------------------------- FILTRO ---------------------------
-
-document.getElementById('aplicarFiltro').addEventListener('click', function() {
-    const tipoProcedimento = document.getElementById('tipoProcedimento').value;
-    const horario = document.getElementById('horario').value;
-    const status = document.getElementById('status').value;
-
-    const selectedDate = formatDate(new Date()); // Data selecionada no calendário
-    updateAgendamentos(selectedDate, tipoProcedimento, horario, status);
-
-    var myModal = bootstrap.Modal.getInstance(document.getElementById('filtroModal'));
-    myModal.hide();
-});
-
 //& -------------------------------------------------------------- TABELA ----------------------------------------------------------- //
 const createInputField = (type, value) => {
     const input = document.createElement("input");
@@ -88,7 +74,6 @@ const createInputField = (type, value) => {
         input.value = value;
     }
 
-    // Adiciona a restrição de caracteres no campo de descrição
     if (type === "text") {
         input.maxLength = 150;
     }
@@ -96,9 +81,6 @@ const createInputField = (type, value) => {
     return input;
 };
 
-
-
-// Função auxiliar para criar um select com opções
 const createSelectField = (options, selectedValue) => {
     const select = document.createElement("select");
     options.forEach(optionValue => {
@@ -113,22 +95,18 @@ const createSelectField = (options, selectedValue) => {
     return select;
 };
 
-
-// Formatação de moeda ao digitar (estilo Nubank)
 const formatCurrency = (event) => {
-    let value = event.target.value.replace(/\D/g, ""); // Remove tudo que não for número
+    let value = event.target.value.replace(/\D/g, "");
     value = (Number(value) / 100).toFixed(2).replace(".", ",");
     event.target.value = "R$ " + value;
 };
 
-// Função para formatar a moeda para exibição
 const formatCurrencyForDisplay = (value) => {
-    value = value.replace(/\D/g, ""); // Remove tudo que não for número
+    value = value.replace(/\D/g, "");
     value = (Number(value) / 100).toFixed(2).replace(".", ",");
     return "R$ " + value;
 };
 
-// Função para editar os itens da tabela
 const editAgendamento = (event, index, date) => {
     const row = event.target.closest("tr");
     const cells = row.querySelectorAll("td");
@@ -141,14 +119,15 @@ const editAgendamento = (event, index, date) => {
         { index: 1, type: 'select', options: entryTypes }, 
         { index: 2, type: 'text' }, 
         { index: 3, type: 'select', options: paymentMethods }, 
-        { index: 4, type: 'text' }, // Usando 'text' para poder formatar como moeda
-        { index: 5, type: 'file' } 
+        { index: 4, type: 'text' }, 
+        { index: 5, type: 'text' }, 
+        { index: 6, type: 'file' } 
     ];
 
     inputConfig.forEach(config => {
         const cell = cells[config.index];
         const currentText = cell.textContent.trim();
-        
+
         if (!cell.hasAttribute("data-original")) {
             cell.setAttribute("data-original", currentText);
         }
@@ -187,22 +166,21 @@ const deleteAgendamento = (event) => {
     }
 };
 
-// Função para salvar as edições
 const saveEdits = (row, index, date) => {
     const inputs = row.querySelectorAll("input, select");
 
-    // Reformatando o valor com R$ para o campo de moeda
     const updatedValues = [
         formatDateTimeToDisplay(inputs[0].value),  
         inputs[1].value,  
         inputs[2].value,  
         inputs[3].value,  
-        formatCurrencyForDisplay(inputs[4].value),  // Chama a função de formatação de moeda
-        inputs[5].files.length > 0 ? inputs[5].files[0].name : row.querySelectorAll("td")[5].getAttribute("data-original")
+        formatCurrencyForDisplay(inputs[4].value),  
+        formatCurrencyForDisplay(inputs[5].value),
+        inputs[6].files.length > 0 ? inputs[6].files[0].name : row.querySelectorAll("td")[6].getAttribute("data-original"),
     ];
 
     row.querySelectorAll("td").forEach((cell, i) => {
-        if (i < 6) {
+        if (i < 7) {
             cell.textContent = updatedValues[i] || cell.getAttribute("data-original");
         }
     });
@@ -215,7 +193,6 @@ const saveEdits = (row, index, date) => {
     row.querySelector(".delete-btn").addEventListener("click", (event) => deleteAgendamento(event));
 };
 
-// Função para cancelar edições
 const cancelEdits = (row) => {
     const cells = row.querySelectorAll("td");
 
@@ -238,7 +215,6 @@ const cancelEdits = (row) => {
     row.querySelector(".delete-btn").addEventListener("click", (event) => deleteAgendamento(event));
 };
 
-// Função para formatar a data para o input
 const formatDateTimeToInput = (dateString) => {
     if (!dateString) return ""; 
     const parts = dateString.split(' '); 
@@ -250,7 +226,6 @@ const formatDateTimeToInput = (dateString) => {
     return dateString;
 };
 
-// Função para formatar a data para exibição
 const formatDateTimeToDisplay = (dateString) => {
     if (!dateString) return ""; 
     const [datePart, timePart] = dateString.split('T'); 
@@ -258,51 +233,35 @@ const formatDateTimeToDisplay = (dateString) => {
     return `${day}/${month}/${year} ${timePart}`;
 };
 
+
 //* ----------------------------- Active e Inactive tabela ---------------------//
 
-document.addEventListener("DOMContentLoaded", function () { 
-    // Inicializa a tabela de entrada como visível
-    toggleTable("tabelaEntrada");
+document.addEventListener("DOMContentLoaded", function () {
+    const buttons = document.querySelectorAll(".tabela_ent_sai");
 
-    // Função para alternar entre as tabelas
-    function toggleTable(tableId) {
-        const btns = document.querySelectorAll(".tabela_ent_sai"); // Seleciona ambos os botões
-        btns.forEach(btn => btn.classList.remove("active")); // Remove a classe "active" de ambos os botões
-
-        // Alterna a visibilidade das tabelas
-        document.getElementById('tabelaEntrada').style.display = tableId === 'tabelaEntrada' ? 'block' : 'none';
-        document.getElementById('tabelaSaida').style.display = tableId === 'tabelaSaida' ? 'block' : 'none';
-
-        // Adiciona a classe "active" ao botão clicado
-        const activeBtn = Array.from(btns).find(btn => btn.title.toLowerCase() === tableId.replace('tabela', '').toLowerCase());
-        activeBtn.classList.add("active");
-    }
+    buttons.forEach(button => {
+        button.addEventListener("click", function () {
+            buttons.forEach(btn => btn.classList.remove("active"));
+            this.classList.add("active"); 
+        });
+    });
 });
 
+// * ---------------------------- Função de modal de Entrada/sáida ----------------------//
 
-// * ---------------------------- Função de modal de pagamento ----------------------//
-// function payment($agendamentos.payments_id)
-
-document.addEventListener("click", function (event) {
-    if (event.target.closest(".fa-dollar-sign")) {
-      var modal = new bootstrap.Modal(document.getElementById("entradaModal"));
-      modal.show();
+document.addEventListener("DOMContentLoaded", function () {
+    function formatCurrencyOnInput(input) {
+        let value = input.value.replace(/\D/g, ""); 
+        value = (parseFloat(value) / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+        input.value = value;
     }
-  });
 
-  document.addEventListener("DOMContentLoaded", function () {
-    const valorInput = document.getElementById("valor");
-
-    valorInput.addEventListener("input", function (event) {
-      let value = event.target.value.replace(/\D/g, ""); // Remove tudo que não for número
-      value = value.padStart(3, "0"); // Garante que sempre tenha pelo menos "00" centavos
-
-      // Formata o valor como moeda brasileira
-      let formattedValue = (parseFloat(value) / 100).toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-      });
-
-      event.target.value = formattedValue;
+    ["valorModal", "descontoModal"].forEach(id => {
+        const input = document.getElementById(id);
+        input.addEventListener("input", () => formatCurrencyOnInput(input));
     });
-  });
+    ["valorMin", "valorMax"].forEach(id => {
+        const input = document.getElementById(id);
+        input.addEventListener("input", () => formatCurrencyOnInput(input));
+    });
+});
