@@ -326,14 +326,10 @@
     border: 1px solid #D8A060;
 }
 
-.btn-principais .btn.active{
+.btn-principais .menu-btn.active {
     background-color: #D8A060 !important;
     border: 1px solid #D8A060 !important;
-}
-
-.btn-principais button:active {
-    background-color: #D8A060 !important;
-    border: 1px solid #D8A060 !important;
+    color: white !important;
 }
 
 @media (max-width: 657px) {
@@ -354,6 +350,18 @@
     border-radius: 12px;
     margin: 0 auto;
     padding: 30px;
+}
+
+#formEditarPerfil #editarPerfil {
+    background-color: #EDAD66 !important;
+    border: 3px solid #EDAD66 !important;
+    transition: 0.3s;
+}
+
+#formEditarPerfil #editarPerfil:hover {
+    background-color: #fff !important;
+    border: 3px solid #D8A060 !important;
+    color: #D8A060 !important;
 }
 
 .editar-perfil .form-label {
@@ -400,7 +408,7 @@
 .editar-perfil .row {
     display: flex;
     flex-wrap: wrap;
-    gap: 30px; 
+    gap: 20px; 
 }
 
 .editar-perfil .col-md-6 {
@@ -416,16 +424,23 @@
 }
 .editar-perfil .btn-success{
     background-color: #0d5f71e6;
-    border-color: #0d5f71e6;
+    border: 3px solid #0d5f71e6;
 }
 .editar-perfil .btn-success:hover {
-    background-color: #09424fe6;
-    border-color: #09424fe6;
+    background-color: #fff;
+    border: 3px solid #0d5f71e6;
+    color: #0d5f71e6;
+}
+
+.editar-perfil .btn-danger {
+    background-color: #e04e4e;
+    border: 3px solid #e04e4e;
 }
 
 .editar-perfil .btn-danger:hover {
-    background-color: #e04e4e;
-    border-color: #d13b3b;
+    background-color: #fff;
+    border: 3px solid #e04e4e;
+    color: #e04e4e;
 }
 
 .editar-perfil .mt-5 {
