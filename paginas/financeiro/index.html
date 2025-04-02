@@ -175,9 +175,13 @@
             <div class="modal-body modal-filtro-body">
                 <form action="seu-endereco-de-envio" method="POST">
         
+                    <!-- Período de Data -->
                     <div class="mb-3 filtro-item">
-                        <label for="dataHora" class="form-label">Data/Hora</label>
-                        <input type="datetime-local" class="form-control" id="dataHora" name="dataHora" required>
+                        <label class="form-label">Período</label>
+                        <div class="d-flex">
+                            <input type="date" class="form-control me-2" id="dataInicio" name="dataInicio" required>
+                            <input type="date" class="form-control" id="dataFim" name="dataFim" required>
+                        </div>
                     </div>
 
                     <!-- Tipo de Entrada -->
