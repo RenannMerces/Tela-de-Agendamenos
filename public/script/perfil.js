@@ -80,8 +80,6 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("btnCancelar").addEventListener("click", () => toggleModoEdicao(false));
 });
 
-
-
 //& -------------------- ACTIVE BUTTON -----------------------  
     document.querySelectorAll('.menu-btn').forEach(button => {
         button.addEventListener('click', function () {
